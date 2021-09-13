@@ -1,0 +1,75 @@
+{% load static %}
+{% load widget_tweaks %}
+    {% include 'base/header.html' %}
+    <header>
+      <div class="container-scroller">
+      </div>
+    </header>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth login100-more2" style="background-image:url('{% static 'Mainapp/images/bk.jpg' %}');">
+        <div class="row w-100">
+          <div class="col-lg-10 mx-auto">
+            <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                <img src="{% static 'Mainapp/images/logo.svg' %}">
+              </div>
+
+                {% for message in messages %}
+                {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% if "info" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+              <h4>Se connecter a son compte purple </h4>
+
+                <form method="post" >
+                    {% csrf_token %}
+                    <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Numero de telephone</label>
+                      <input type="text" name="phone_no" class="form-control" placeholder="+237 652686163">
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Mot de passe</label>
+                       <input type="password" name="password" class="form-control" placeholder="**********">
+                    </div>
+                        </div>
+                    </div>
+                     <div style="text-align:center;">
+                    <button type="submit" class="btn btn-gradient-primary mr-2" style="width:500px;">Submit</button>
+                     </div>
+                    <div class="text-center mt-4 font-weight-light">
+                  Vous n'avez pas un compte ? <a href="{% url 'register home' %}" class="text-primary">Creer mon compte</a>
+                </div>
+                  </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+
+    </body>
+
+</html>

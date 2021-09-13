@@ -1,0 +1,88 @@
+<!doctype html>
+{% load static %}
+    {% include 'base/header.html' %}
+    <header>
+      <div class="container-scroller">
+
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="{% static 'Mainapp/images/logo.svg' %}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'Mainapp/images/logo-mini.svg' %}" alt="logo"/></a>
+      </div>
+
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <div>
+               <div class="school-title">LYCEE BILINGUE DE BAFIA</div>
+          </div>
+          <ul class="navbar-nav navbar-nav-right" style="margin-left:-300px;">
+          <li class="nav-item d-none d-lg-block full-screen-link">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+</nav>
+      </div>
+    </header>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth login100-more1" style="background-image:url('{% static 'Mainapp/images/bk.jpg' %}');">
+        <div class="row w-100" style="position:fixed;">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left p-5">
+              <div class="brand-logo">
+                <img src="{% static 'Mainapp/images/logo.svg' %}">
+              </div>
+              <h4>Vous etes nouveau ici?</h4>
+              <h6 class="font-weight-light">Choisisez votre categorie et procedez</h6>
+
+              <form class="pt-3" method="get" action="{% url 'register' %}">
+                  {% csrf_token %}
+
+                <div class="form-group">
+                  <select class="form-control form-control-lg" name="group_name">
+                    <option>enseignant</option>
+                       <option>intendant</option>
+                      <option>censeur</option>
+                      <option>surveillant general</option>
+                  </select>
+                </div>
+
+                <div class="mt-3">
+                  <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{% url 'register' %}">CONTINUER</button>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Vous-avez deja un compte ? <a href="{% url 'login' %}" class="text-primary">Connecter-vous</a>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+       {% include 'base/footer.html' %}
+
+    </body>
+
+</html>

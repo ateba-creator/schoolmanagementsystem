@@ -1,0 +1,163 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info" style="text-align:center;width:980px;margin-left:20px;"><i class="mdi mdi-account-multiple-plus notify-icon"></i>{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+                 <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><strong><img src="{% static 'Mainapp/images/graduation-hat.png' %}" class="heading-icon">Creation d'un compte {{group_name}}</strong> </h3>
+
+                 <form class="forms-sample" method="post">
+                     {% csrf_token %}
+                     <hr class="line">
+
+                      {% if group_name != 'intendant' and group_name != 'surveillant general' %}
+                     <label>Departement</label>
+                     {% endif %}
+
+                    <div class="row" style="margin-top:25px;">
+                        {% if group_name != 'intendant' and group_name != 'surveillant general' %}
+                        {% for dep in departments %}
+                        <div class="col-sm-2">
+                    <div class="form-group">
+<div class="form-check form-check-flat form-check-danger">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" value="{{dep.name}}" name="department">
+                        {{dep.name}}
+                      </label>
+</div> </div>
+                        </div>
+                            {% endfor %}
+                    </div>
+                     <hr class="line">
+
+
+                        <div class="row"> {% else %}
+                         <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Address email</label>
+                       {{ form.email | add_class:"form-control form-control-lg" }}
+                        {{ form.email.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom</label>
+                       {{ form.first_name | add_class:"form-control" }}
+                        {{ form.first_name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                            {% if group_name != 'intendant' and group_name != 'surveillant general' %}
+                            <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Address email</label>
+                       {{ form.email | add_class:"form-control form-control-lg" }}
+                        {{ form.email.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                            {% endif %}
+                    </div>
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nationalite</label>
+                       {{ form.nationality | add_class:"form-control form-control-lg" }}
+                        {{ form.nationality.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Religion</label>
+                       {{ form.religion | add_class:"form-control form-control-lg" }}
+                        {{ form.religion.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Genre</label>
+                       {{ form.gender | add_class:"form-control form-control-lg" }}
+                        {{ form.gender.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Status marital</label>
+                       {{ form.marital_status | add_class:"form-control form-control-lg" }}
+                        {{ form.marital_status.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Numero de telephone</label>
+                       {{ form.phone_no | add_class:"form-control form-control-lg" }}
+                        {{ form.phone_no.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Address</label>
+                       {{ form.address | add_class:"form-control form-control-lg" }}
+                        {{ form.address.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+                     {% if group_name == 'intendant' %}
+                     <div class="row">
+                          <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Address email</label>
+                       {{ form.email | add_class:"form-control form-control-lg" }}
+                        {{ form.email.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                     </div>
+                     {% endif %}
+                <hr class="line">
+                    <div class="row hidden" >
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Mot de passe</label>
+                       {{ form.password1 | add_class:"form-control form-control-lg" }}
+                        {{ form.password1.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Confirmer le mot de passe</label>
+                       {{ form.password2 | add_class:"form-control form-control-lg" }}
+                        {{ form.password2.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+                     <div style="text-align:center;">
+                    <button type="submit" class="btn btn-gradient-primary mr-2" style="max-width:500px;">Submit</button>
+                     </div>
+                  </form>
+                </div>
+              </div>
+                 </div>
+
+
+{% endblock %}

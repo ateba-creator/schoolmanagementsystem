@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{% include 'base/header.html' %}
+
+    <!--Sidebar-->
+    {% include 'base/sidebar.html' %}
+
+ <!-- Breadcrumb -->
+        {% include 'base/breadcrumb.html' %}
+
+
+ <div class="main-panel">
+        <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi-home"></i>
+              </span>
+              LYCÉE BILINGUE DE BAFIA
+            </h3>
+
+          </div>
+
+            {% block content %}
+                {% endblock %}
+
+        </div>
+
+     {% include 'base/footer.html' %}
+ </div>
+
+<!--Footer-->
+
+
+<!--JS-->
+{% include 'base/js.html' %}
+<script type="text/javascript" src="https://www.monetbil.com/widget/v2/monetbil.min.js"></script>
+</body>
+</html>

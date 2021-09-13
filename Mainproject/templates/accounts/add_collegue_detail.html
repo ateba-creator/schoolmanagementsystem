@@ -1,0 +1,120 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                    <div style="margin-top:-20px;">
+                    <h4 class="card-title">
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile" class="user-image">
+                        <div class="user-name">{{teacher.first_name}}</div>
+                        {% for department in teacher.department.all %}
+                        <div class="user-name-1">{{department.name}}</div>
+                        {% endfor %}
+                        <div class="card-description" style="margin-left:155px;">Enseignant</div>
+                    </h4>
+                </div>
+                    <hr class="line">
+                  <form class="forms-sample" method="get" action="{% url 'confirm success' %}">
+                        <input type="text" value="{{teacher.id}}" class="hidden" name="id">
+                      <div class="row">
+                          <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Section</h4>
+                     <h5 class="label-info">
+                       {% for department in teacher.department.all %}
+                            {{department.section}}
+                            {% endfor %}
+                    </h5>
+                    </div>
+                          </div>
+                      <div class="col-md-6">
+                    <div class="form-group">
+                     <h4>Serie</h4>
+                     <h5 class="label-info">
+                        {% for department in teacher.department.all %}
+                            {{department.group_type}}
+                            {% endfor %}
+                    </h5>
+                    </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6">
+                    <div class="form-group">
+                     <h4>Departement</h4>
+                     <h5 class="label-info">
+                        {% for department in teacher.department.all %}
+                            {{department.name}}
+                            {% endfor %}
+                    </h5>
+                    </div>
+                          </div>
+                      <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Noms de l'enseignant</h4>
+                        <h5 class="label-info">
+                            {{teacher.first_name}}
+                        </h5>
+                    </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Genre</h4>
+                        <h5 class="label-info">
+                            {{teacher.gender}}
+                        </h5>
+                    </div>
+                          </div>
+                      <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Email</h4>
+                     <h5 class="label-info" style="text-transform:None;">
+                        {{teacher.email}}
+                    </h5>
+                    </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Address</h4>
+                        <h5 class="label-info">
+                            {{teacher.address}}
+                        </h5>
+                    </div>
+                          </div>
+                      <div class="col-md-6">
+                    <div class="form-group">
+                      <h4>Numero de telephone</h4>
+                     <h5 class="label-info">
+                        {{teacher.phone_no}}
+                    </h5>
+                    </div>
+                      </div>
+                      </div>
+                      <hr class="line">
+                      <div class="row">
+                           <div class="col-md-4">
+                    <button type="submit" class="btn btn-gradient-primary mr-2" style="width:250px;">Confirmer le Compte</button>
+                           </div>
+                           <div class="col-md-4">
+                               <button class="btn btn-danger" style="width:250px;">Suprimmer</button>
+                           </div>
+                           <div class="col-md-4">
+                               <button class="btn btn-secondary" style="width:250px;">Retour</button>
+                      </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

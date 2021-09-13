@@ -1,0 +1,185 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for group in user.groups.all %}
+    {% if group.name != 'parent' %}
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <div style="margin-top:-20px;">
+                    <h4 class="card-title">
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile" class="user-image">
+                        <div class="user-name">{{user.first_name}}</div>
+                        <p class="card-description" style="margin-left:500px;margin-top:-40px;padding-bottom:10px;">departement</p>
+
+
+                        <div class="row">
+                            {% for dep in user.department.all %}
+                            <div class="col-md-2">
+                        <div class="user-name-1">{{dep.name}} ,</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        {% for group in user.groups.all %}
+                        {% if group == None %}
+                        <div class="card-description" style="margin-left:155px;">Aucuns</div>
+                        {% else %}
+                        <div class="card-description" style="margin-left:155px;">{{group.name}}</div>
+                        {% endif %}
+                        {% endfor %}
+                    </h4>
+                </div>
+                    <hr class="line">
+                        <input type="text" value="{{teacher.id}}" class="hidden" name="id">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right:5px solid #ebedf2;">
+                    {% if teacher_courses %}
+                     <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          Enseigne
+                        </th>
+                        <th>
+                          Dans les classes
+                        </th>
+                      </tr>
+                    </thead>
+                          <tbody>
+
+                      {% for course in teacher_courses %}
+                      <tr>
+                        <td class="py-1">
+                            {{course.name}}
+                        </td>
+                        <td>
+                          {{course.classroom.name}}
+                        </td>
+                      </tr>
+                            {% endfor %}
+                          </tbody>
+                     </table>
+                            {% else %}
+                            {% endif %}
+                            <hr class="line">
+
+                     <form method="#" action="{% url 'change password' %}">
+                         <div style="margin-top:30px;text-align:center;">
+                    <button type="submit" class="btn btn-gradient-info">Changer mot de passe</button>
+                     </div>
+                     </form>
+
+                     </div>
+                        <div class="col-md-6">
+                        <h4>Info personel</h4>
+                            <hr class="line">
+                            <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Numero de telephone</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.phone_no}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Address</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.address}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Genre</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.gender}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Professeur Principal de la</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.main_classroom}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                               <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Religion</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.religion}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Status marital</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.marital_status}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                               <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Email</label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                    {{user.email}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Nationalite</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.nationality}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Date de naissance</label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                    {{user.date_of_birth}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Lieu de naissance</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{user.place_of_birth}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="line">
+                            <div style="text-align:center;">
+                             <button type="submit" class="btn btn-gradient-primary mr-2" style="width:400px;">Modifier</button>
+                    </div>
+                        </div>
+                      <hr class="line">
+
+
+                </div>
+              </div>
+            </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}
