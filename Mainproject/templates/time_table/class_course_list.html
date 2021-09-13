@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for group in user.groups.all %}
+{% for message in messages %}
+  {% if "info" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+  {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+{% if courses %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/calendar(1).png' %}" class="heading-icon">Liste des matieres de la {{classroom.name}}</h3>
+
+                    <h4><center>Choisisez une matiere pour assiger le nombre d'heures de cours par semaine</center></h4>
+                    <hr class="line">
+                    <form action="{% url 'save class hours' %}" method="get">
+
+                        <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+
+                        <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center">No</th>
+                          <th style="text-align:center;">Nom de la matiere</th>
+                          <th style="text-align:center;">Nombre d'heures de cours par semaine</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for lecture in lectures %}
+                    <tr>
+                        <td style="text-align:center;">{{forloop.counter}}</td>
+                          <td style="text-align:center;">
+                              <strong>{{lecture.department.name}}</strong>
+                          </td>
+                        <td style="text-align:center;">
+                            <input type="text" name="hours" value="{{lecture.num_class_in_week}}" style="text-align:center;width:100px;">
+                        </td>
+                      </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                    <hr class="line">
+                    <div style="text-align:center; margin-top:30px;" >
+                    <button type="submit" class="btn btn-gradient-success">sauvegarder</button>
+                    </div>
+                    </form>
+                </div>
+              </div>
+    </div>
+    {% endif %}
+
+{% endfor %}
+{% endblock %}
