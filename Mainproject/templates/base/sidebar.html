@@ -1,0 +1,1064 @@
+{% load static %}
+<nav class="container-fluid page-body-wrapper" xmlns="http://www.w3.org/1999/html">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item nav-profile">
+                <a href="{% url 'my account' %}" class="nav-link">
+                    <div class="nav-profile-image">
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile">
+                        <span class="login-status online"></span> <!--change to offline or busy as needed-->
+                    </div>
+                    <div class="nav-profile-text d-flex flex-column">
+                        <span class="font-weight-bold mb-2">{{user.first_name}}</span>
+                        {% for group in user.groups.all %}
+                        {% if group.name == 'adminparent' %}
+                        <span class="text-primary text-small">Proviseur et Parent</span>
+                        {% endif %}
+                        {% if group.name == 'parentteacher' %}
+                        <span class="text-primary text-small">Enseignant et Parent</span>
+                        {% endif %}
+                        {% if group.name == 'intendparent' %}
+                        <span class="text-primary text-small">Intendant et Parent</span>
+                        {% endif %}
+                        {% if group.name == 'adminteacher' %}
+                        <span class="text-primary text-small">Proviseur et Enseignant</span>
+                        {% endif %}
+                        {% if group.name == 'enseignant' %}
+                        <span class="text-primary text-small">Enseignant</span>
+                        {% endif %}
+                        {% if group.name == 'administrateur' %}
+                        <span class="text-primary text-small">Proviseur</span>
+                        {% endif %}
+                        {% if group.name == 'intendant' %}
+                        <span class="text-primary text-small">Intendant</span>
+                        {% endif %}
+                        {% if group.name == 'parent' %}
+                        <span class="text-primary text-small">Parent</span>
+                        {% endif %}
+                        {% if group.name == 'surveillant general' %}
+                        <span class="text-primary text-small">Surveillant General</span>
+                        {% endif %}
+                        {% if group.name == 'censeur' %}
+                        <span class="text-primary text-small">Censeur</span>
+                        {% endif %}
+                        {% if group.name == 'censeurteacher' %}
+                        <span class="text-primary text-small">Censeur et Enseignant</span>
+                        {% endif %}
+                        {% if group.name == 'censeurparent' %}
+                        <span class="text-primary text-small">Censeur et Parent</span>
+                        {% endif %}
+                        {% if group.name == 'censeurparentteacher' %}
+                        <span class="text-primary text-small">Censeur, Parent et Enseignant</span>
+                        {% endif %}
+                        {% if group.name == 'adminparentteacher' %}
+                        <span class="text-primary text-small">Proviseur, Enseignant et Parent</span>
+                        {% endif %}
+                        {% if group.name == 'surveillantparent' %}
+                        <span class="text-primary text-small">Surveillant General et Parent</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">
+                    <span class="menu-title">Aceuil</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                </a>
+            </li>
+            {% for group in user.groups.all %}
+
+            {% if group.name == 'surveillant general' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 's classes' %}">
+                    <span class="menu-title">Mes classes</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'collegue list' %}">
+                    <span class="menu-title">Mes collegues</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Heures d'absences</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add hours' %}">Ajouter des heures</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class hour list' %}">Listes d'heures</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'disciplinary council' %}">
+                    <span class="menu-title">Conseil de discipline</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'surveillantparent' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 's classes' %}">
+                    <span class="menu-title">Mes classes</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'collegue list' %}">
+                    <span class="menu-title">Mes collegues</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Heures d'absences</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add hours' %}">Ajouter des heures</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class hour list' %}">Listes d'heures</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'disciplinary council' %}">
+                    <span class="menu-title">Conseil de discipline</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            {% endif %}
+
+
+            {% if group.name == 'intendant' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add student' %}">
+                    <span class="menu-title">Enregistrer un eleve</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'student class list' %}">
+                    <span class="menu-title">Liste des eleves</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'deleted students' %}">
+                    <span class="menu-title">Liste des eleves suprimme</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'class list' %}">
+                    <span class="menu-title">Classes</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'department list' %}">
+                    <span class="menu-title">Departements</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'fill hours chose class' %}">
+                    <span class="menu-title">Emploi de temps</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <span class="menu-title">Mes collegues</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'administrateur' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add student' %}">
+                    <span class="menu-title">Enregistrer un eleve</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Administration</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add collegue home' %}">AJouter un collegue</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add department' %}">Ajouter un departement</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add classroom' %}">AJouter une classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add course' %}">AJouter une matiere</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Asigner</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign teacher' %}">enseignant</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign main teacher' %}">professeur principal</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign head master' %}">surveillant general</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'censeur' %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'enseignant' %}
+
+            <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}"><span class="menu-title">Resultats</span>
+            <i class="menu-icon mdi mdi-alphabetical "></i>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 't reportcard chose class' %}">Bulletin</a></li>
+
+
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Emploi de temps</a></li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'dates' %}">Dates academiques</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if group.name == 'parent' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'results home' %}">Resultats</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="#">Plaintes</a></li>
+            <li class="nav-item"> <a class="nav-link" href="#">Contacter un enseignant</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'censeurteacher' %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}"><span class="menu-title">Mes resultats</span>
+            <i class="menu-icon mdi mdi-alphabetical "></i>
+            </a></li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'dates' %}">Dates academiques</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'censeurparentteacher' %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'dates' %}">Dates academiques</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic10" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic10">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'adminteacher' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add student' %}">
+                    <span class="menu-title">Enregistrer un eleve</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Administration</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add collegue home' %}">AJouter un collegue</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add department' %}">Ajouter un departement</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add classroom' %}">AJouter une classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add course' %}">AJouter une matiere</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academique</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Asigner</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign teacher' %}">enseignants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign main teacher' %}">professeur principal</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign head master' %}">surveillant general</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}"><span class="menu-title">Mes resultats</span>
+            <i class="menu-icon mdi mdi-alphabetical "></i>
+            </a></li>
+             <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'dates' %}"><span class="menu-title">Dates academiques</span></a> </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'adminparentteacher' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add student' %}">
+                    <span class="menu-title">Enregistrer un eleve</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Administration</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add collegue home' %}">AJouter un collegue</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add department' %}">Ajouter un departement</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add classroom' %}">AJouter une classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add course' %}">AJouter une matiere</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Asigner</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign teacher' %}">enseignants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign main teacher' %}">professeur principal</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign head master' %}">surveillant general</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'dates' %}">Dates academiques</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'parentteacher' %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 't reportcard chose class' %}">Bulletins</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Emploi de temps</a></li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+                    <span class="menu-title">Scholaire</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic20">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my classes' %}">Mes classes</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="{% url 'my departments' %}">Mes departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'dates' %}">Dates academiques</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            {% endif %}
+
+            {% if group.name == 'intendparent' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'class list' %}">
+                    <span class="menu-title">Classes</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'department list' %}">
+                    <span class="menu-title">Departements</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <span class="menu-title">Emploi de temps</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <span class="menu-title">Mes collegues</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'teacher results' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'adminparent' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add student' %}">
+                    <span class="menu-title">Enregistrer un eleve</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Administration</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add collegue home' %}">AJouter un collegue</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add department' %}">Ajouter un departement</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add classroom' %}">AJouter une classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'add course' %}">AJouter une matiere</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Asigner</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic3">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign teacher' %}">enseignants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign main teacher' %}">professeur principal</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'assign head master' %}">surveillant general</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic5">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic2">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'results home' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'contact teacher' %}">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if group.name == 'censeurparent' %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#listes" aria-expanded="false" aria-controls="listes">
+                    <span class="menu-title">Listes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="listes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'student class list' %}">Liste des eleves</a></li>
+                         <li class="nav-item"> <a class="nav-link" href="{% url 'deleted students' %}">Liste des eleves suprimmes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'collegue list' %}">Liste de mes collegues</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'department list' %}">Liste des departements</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class list' %}">Liste des classes</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                    <span class="menu-title">Academic</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic1">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'fill hours chose class' %}">Emploi du temps</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'view result chose class' %}">Resultats</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'reportcard chose class' %}">Bulletins scholaire</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dates' %}">
+                    <span class="menu-title">Dates academiques</span>
+                    <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                    <span class="menu-title">Conseils</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-contacts menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic5">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'class council' %}">Conseil de classe</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'disciplinary council' %}">Conseil de discipline</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                    <span class="menu-title">Mes enfants</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic2">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'my children' %}">Mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'results home' %}">Resultats de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'children report card' %}">Bulletins de mes enfants</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Plaintes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'contact teacher' %}">Contacter un enseignant</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+    {% endfor %}
+    {% block sidebar %}
+    {% endblock %}
+    </div>
