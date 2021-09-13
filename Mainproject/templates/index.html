@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Purple </title>
+    <link rel="stylesheet" href="{% static 'index/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'index/css/fontawsom-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'index/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'index/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/css/style.css' %}" />
+</head>
+
+<body><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% include 'base/header.html' %}
+    <!-- ################# Header Starts Here#######################--->
+    <header>
+      <div class="container-scroller">
+
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="{% static 'Mainapp/images/logo.svg' %}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'Mainapp/images/logo-mini.svg' %}" alt="logo"/></a>
+      </div>
+
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <div>
+              <div class="school-title"><h1>LYCÉE BILINGUE DE BAFIA</h1></div>
+          <a style="margin-top:-70px;margin-left:850px;" href="{% url 'register home' %}" class="btn btn-gradient-primary mr-2">Creer un compte</a>
+          </div>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+</nav>
+      </div>
+    </header>
+
+    <!-- ################# Slider Starts Here#######################--->
+     <section id="h">
+		 <div class="slider">
+        <!-- Set up your HTML -->
+        <div class="owl-carousel ">
+            <div class="slider-img">
+                <div class="item">
+                    <div class="slider-img"><img src="{% static 'index/images/slider/slider-1.jpg' %}" alt=""></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                                <div class="slider-captions">
+                                    <h1 class="slider-title">DISCIPLINE - TRAVAIL - SUCCES</h1>
+                                    <p class="slider-text hidden-xs">LYCEE BILINGUE DE BAFIA - GOVERNMENT BILINGUAL HIGH SCHOOL BAFIA.</p>
+                                    <a href="{% url 'login' %}" class="btn btn-gradient-primary mr-2">Se Connecter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-img">
+                <div class="item">
+                    <div class="slider-img"><img src="{% static 'index/images/slider/slider-2.jpg' %}" alt=""></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                                <div class="slider-captions">
+                                    <h1 class="slider-title">DISCIPLINE - TRAVAIL - SUCCES</h1>
+                                    <p class="slider-text hidden-xs">LYCEE BILINGUE DE BAFIA - GOVERNMENT BILINGUAL HIGH SCHOOL BAFIA.</p>
+                                    <a href="{% url 'login' %}" class="btn btn-gradient-primary mr-2">Se Connecter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="slider-img"> <img src="{% static 'index/images/slider/slider-3.jpg' %}" alt=""></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                            <div class="slider-captions">
+                                <h1 class="slider-title">DISCIPLINE - TRAVAIL - SUCCES</h1>
+                                <p class="slider-text hidden-xs">LYCEE BILINGUE DE BAFIA - GOVERNMENT BILINGUAL HIGH SCHOOL BAFIA.</p>
+                                <a href="{% url 'login' %}" class="btn btn-gradient-primary mr-2">Se Connecter</a>b
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	 </section>
+
+      <!-- ################# Footer Starts Here#######################--->
+
+       {% include 'base/footer.html' %}
+
+    </body>
+
+<script src="{% static 'index/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'index/js/popper.min.js' %}"></script>
+<script src="{% static 'index/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'index/plugins/scroll-fixed/jquery-scrolltofixed-min.js' %}"></script>
+<script src="{% static 'index/plugins/slider/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'index/js/script.js' %}"></script>
+
+<script src="{% static 'doctor/js/main.js' %}"></script>
+
+</html>

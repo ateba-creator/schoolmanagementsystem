@@ -1,0 +1,130 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% load i18n %}
+{% for group in user.groups.all %}
+    {% if group.name == 'administrateur' %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+{% if counter == 0 %}
+    {% else %}
+ <div class="row" id="add-user">
+            <div class="col-12">
+              <span class="d-flex align-items-center purchase-popup">
+                  <center><span style="font-size:25px;color:#3e4b5b;"><i class="mdi mdi-account-plus size-icon"></i> {% trans "{{counter}} comptes attendent d'etre confirmes" %}</span> </center>
+                <a href="{% url 'add collegue home' %}" class="btn ml-auto purchase-button">Confirmer</a>
+                <a href="#" target="_blank" class="btn download-button">Plutard</a>
+                <i class="mdi mdi-close popup-dismiss"></i>
+              </span>
+            </div>
+          </div>
+    {% endif %}
+    {% endif %}
+{% if group.name != 'parent' %}
+<div class="row">
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white shadow">
+                <div class="card-body">
+                  <img src="{% static 'Mainapp/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">{% trans "Nombre d'eleves" %}
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{all_students.count}}</h2>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white shadow">
+                <div class="card-body">
+                  <img src="{% static 'Mainapp/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Nombre d'enseignants
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{all_teachers.count}}</h2>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white shadow">
+                <div class="card-body">
+                  <img src="{% static 'Mainapp/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Nombre de parents
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{parents.count}}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endif %}
+
+{% if group.name == 'intendant' or group.name == 'parent' %}
+    {% for student in students %}
+{% for year in student.academic_year.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+
+            </div>
+    <button type="submit" class="btn btn-gradient-danger" style="margin-top:30px;margin-left:100px;">Payer le pension</button>
+                  </div>
+                {% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body shadow">
+            <h3 style="text-align:center">Statistiques des moyennes des classes</h3>
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h3>1 ere Sequence - (<span class="text-danger">2021/2022</span>) / <i>Section Francophone</i></h3>
+                  <canvas id="barChart1" style="height:230px"></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body shadow">
+            <h3 style="text-align:center">Class averages statistics</h3>
+            <hr class="line" style="margin-top:0px;">
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h3 style="margin-top:-30px;">1 st Sequence - (<span class="text-danger">2021/2022</span>) / <i>Anglophone Section</i></h3>
+                  <canvas id="barChart" style="height:230px"></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
