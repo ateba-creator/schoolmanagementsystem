@@ -1,0 +1,382 @@
+/* =======================================================================
+Template Name: Dil Hospital
+Author:  SmartEye Adminpanel
+Author URI: www.smarteyeapps.com
+Version: 1.0
+coder name:Prabin Raja
+Description: This Template is created for web template
+======================================================================= */
+/* ===================================== Import Less ================================== */
+@font-face {
+  font-family: 'mouse-300';
+  src: url("../fonts/PT_Sans-Web-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: 'mouse-500';
+  src: url("../fonts/PT_Sans-Web-Bold.ttf") format("truetype"); }
+/* ===================================== Basic CSS ================================== */
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
+
+.session-title {
+  padding: 30px;
+  margin: 0px; }
+  .session-title h2 {
+    width: 100%;
+    text-align: center; }
+  .session-title p {
+    max-width: 850px;
+    text-align: center;
+    float: none;
+    margin: auto; }
+  .session-title span {
+    float: right;
+    font-style: italic; }
+
+.inner-title {
+  padding: 20px;
+  padding-left: 0px;
+  margin-bottom: 30px; }
+  .inner-title h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-family: "slab", Arial, Helvetica, sans-serif; }
+  .inner-title p {
+    width: 100%;
+    text-align: center; }
+
+.page-nav {
+  padding: 40px;
+  text-align: center;
+  padding-top: 120px; }
+  .page-nav ul {
+    float: none;
+    margin: auto; }
+  .page-nav h2 {
+    font-size: 36px;
+    width: 100%;
+    color: #444; }
+    @media screen and (max-width: 600px) {
+      .page-nav h2 {
+        font-size: 26px; } }
+  .page-nav ul li {
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 16px; }
+    .page-nav ul li i {
+      width: 30px;
+      text-align: center;
+      color: #444; }
+    .page-nav ul li a {
+      color: #444; }
+
+.zz{
+    background:linear-gradient(180deg, #007BFF 0%, rgba(111, 220, 255, 0.58) 100%);
+    width:200px;
+    border-radius:8px;
+    border:None;
+}
+
+
+/* ===================================== Header CSS ================================== */
+
+.scroll-to-fixed-fixed {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  background-color: #FFF;
+  z-index: 9999; }
+
+.small-menu {
+  float: right;
+  color: #00ab9f;
+  font-size: 32px;
+  margin-top: 19px;
+  margin-right: 12px; }
+  @media screen and (max-width: 405px) {
+    .small-menu {
+      margin-top: 14px; } }
+
+/* ===================================== Slider Style CSS ================================== */
+.slider {
+  position: relative;
+  padding-top: 85px; }
+  @media screen and (max-width: 767px) {
+    .slider {
+      padding-top: 71px; } }
+
+.slider-captions {
+  position: absolute;
+  bottom: 160px;
+  text-align: center; }
+  @media screen and (max-width: 1050px) {
+    .slider-captions {
+      bottom: 100px !important; }
+      .slider-captions .slider-title {
+        font-size: 42px; } }
+  @media screen and (max-width: 810px) {
+    .slider-captions {
+      bottom: 50px !important; }
+      .slider-captions .slider-title {
+        font-size: 32px; } }
+  @media screen and (max-width: 572px) {
+    .slider-captions {
+      display: none; } }
+
+.slider-title {
+  font-size: 50px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -3px; }
+
+.appname{
+  font-size: 30px;
+  font-weight: 600;
+  color: #007bff;
+  letter-spacing: -3px;
+  margin-top:-50px;
+  margin-left:60px;
+  font-family:"mouse-500", Arial, Helvetica, sans-serif;
+  }
+
+.slider-text {
+  margin-bottom: 20px;
+  color: #fff; }
+
+.slider-img {
+  background: -moz-linear-gradient(top, rgba(45, 32, 44, 0.5) 0%, rgba(45, 32, 44, 0.5) 100%);
+  background: -webkit-linear-gradient(top, rgba(45, 32, 44, 0.5) 0%, rgba(45, 32, 44, 0.5) 100%);
+  background: linear-gradient(to bottom, rgba(45, 32, 44, 0.5) 0%, rgba(45, 32, 44, 0.5) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cc1b2429', endColorstr='#cc1b2429', GradientType=0);
+  position: relative; }
+
+.slider-img img {
+  position: relative;
+  z-index: -1; }
+
+.slider .owl-nav .owl-prev, .slider .owl-nav .owl-next {
+  color: #fff;
+  display: inline-block;
+  zoom: 1;
+  margin: 5px;
+  padding: 6px 12px;
+  font-size: 22px;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  background: transparent;
+  filter: Alpha(Opacity=50);
+  line-height: 1;
+  border: 2px solid #fff; }
+
+.owl-controls.clickable .owl-buttons div:hover {
+  filter: Alpha(Opacity=100);
+  opacity: 1;
+  text-decoration: none;
+  background-color: #fff; }
+
+.slider .owl-nav .owl-prev {
+  position: absolute;
+  top: 40%;
+  left: 0px; }
+
+.slider .owl-nav .owl-next {
+  position: absolute;
+  top: 40%;
+  right: 0px; }
+
+.slider .owl-dots .owl-dot {
+  position: relative;
+  text-align: center;
+  bottom: 40px;
+  max-width: 1140px;
+  margin: 0 auto; }
+
+.slider .owl-dots .owl-dot span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0px 0px 10px 10px;
+  filter: Alpha(Opacity=50);
+  /*IE7 fix*/
+  opacity: 0.8;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  float: left; }
+
+.slider .owl-dots .owl-dot.active span {
+  background-color: #fff; }
+
+.slider .owl-dots .owl-dot.active span, .slider .owl-controls.clickable .owl-page:hover span {
+  background-color: #fff;
+  filter: Alpha(Opacity=100);
+  /*IE7 fix*/
+  opacity: 1; }
+
+.slider .col-lg-offset-2 {
+  float: none;
+  margin: auto; }
+
+.our-blog {
+  padding: 50px;
+  background-color: #FFF;
+  padding-bottom: 100px; }
+  @media screen and (max-width: 940px) {
+    .our-blog {
+      padding: 30px 10px; } }
+  @media screen and (max-width: 600px) {
+    .our-blog {
+      padding: 20px 10px; }
+      .our-blog .blog-cont {
+        padding: 0px; }
+      .our-blog .blog-smk {
+        padding: 0px; } }
+  .our-blog .blog-cont {
+    float: none;
+    margin: auto; }
+  .our-blog .blog-single {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px; }
+    .our-blog .blog-single .figure {
+      margin-bottom: 0px; }
+  .our-blog .blog-single-det {
+    margin: auto;
+    padding: 20px;
+    z-index: 99;
+    box-shadow: 0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54);
+    width: 90%;
+    position: relative;
+    margin-top: -80px;
+    background-color: #FFF; }
+    .our-blog .blog-single-det .btn {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+    .our-blog .blog-single-det span {
+      font-size: 13px;
+      color: #b5316a; }
+    .our-blog .blog-single-det h6 {
+      font-size: 1.3rem; }
+    .our-blog .blog-single-det p {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      font-size: 1rem; }
+
+/* ===================================== Doctor Say CSS ================================== */
+.doctor-message {
+  background-image: url("../images/slider/slider-3.jpg");
+  background-attachment: fixed;
+  background-size: cover; }
+  .doctor-message .inner-lay {
+    background-color: rgba(0, 171, 159, 0.9);
+    padding: 50px;
+    padding-bottom: 0px;
+    color: #FFF; }
+    @media screen and (max-width: 940px) {
+      .doctor-message .inner-lay {
+        padding: 30px 10px; } }
+  .doctor-message .doc-img {
+    text-align: center; }
+    .doctor-message .doc-img img {
+      width: 400px;
+      margin-top: -140px; }
+  .doctor-message .doc-det h2 {
+    font-size: 42px;
+    margin-bottom: 0px; }
+  .doctor-message .doc-det span {
+    font-weight: 600;
+    margin-top: -5px; }
+  .doctor-message .doc-det p {
+    margin-top: 30px;
+    font-size: 18px;
+    text-indent: 20px; }
+  .doctor-message .doc-det h4 {
+    margin-top: 30px; }
+
+/* ===================================== Mission Vision CSS ================================== */
+.mosion-vision {
+  padding: 50px;
+  background-color: #FFF; }
+  @media screen and (max-width: 940px) {
+    .mosion-vision {
+      padding: 30px 10px; } }
+  .mosion-vision .single-dd {
+    background-color: #f6f4f6;
+    padding: 30px;
+    border-radius: 5px; }
+    @media screen and (max-width: 991px) {
+      .mosion-vision .single-dd {
+        margin-bottom: 30px; } }
+    .mosion-vision .single-dd p {
+      font-size: 1.1rem;
+      text-indent: 20px;
+      text-align: justify; }
+    .mosion-vision .single-dd .btn {
+      float: right; }
+
+/* ===================================== Session Type CSS ================================== */
+.sesion-type {
+  padding: 50px; }
+  @media screen and (max-width: 940px) {
+    .sesion-type {
+      padding: 30px 10px; } }
+  .sesion-type .single-sess {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+    background-color: #FFF;
+    margin-bottom: 30px; }
+    .sesion-type .single-sess img {
+      width: 100%; }
+    .sesion-type .single-sess p {
+      padding: 10px;
+      font-family: "mouse-500", Arial, Helvetica, sans-serif;
+      border-radius: 5px;
+      text-align: center; }
+  .sesion-type .sess-ok {
+    padding: 57px 30px;
+    text-align: center; }
+
+/* ===================================== Fooer CSS ================================== */
+.footer {
+  padding: 50px;
+  padding-bottom: 0px;
+  background-color: #444;
+  color: #FFF; }
+  @media screen and (max-width: 940px) {
+    .footer {
+      padding: 30px 10px; } }
+  .footer h2 {
+    font-size: 26px;
+    margin-top: 10px; }
+  .footer p {
+    text-align: justify;
+    text-indent: 20px; }
+  .footer .link-list li {
+    padding: 10px;
+    border-bottom: 1px solid #6C6C6C; }
+    .footer .link-list li a {
+      color: #FFF; }
+    .footer .link-list li i {
+      float: right; }
+  .footer .map-img {
+    font-weight: 600;
+    font-size: 17px;
+    padding-left: 20px; }
+
+.copy {
+  padding: 20px;
+  background-color: #2E2E2E;
+  color: #FFF; }
+  .copy a {
+    color: #FFF; }
+  .copy span {
+    float: right; }
+    .copy span i {
+      margin-right: 20px; }
+    @media screen and (max-width: 777px) {
+      .copy span {
+        display: none; } }
+
