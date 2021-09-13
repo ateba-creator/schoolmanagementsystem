@@ -1,0 +1,225 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">{{course.name}} <i>{{sequence}} - (<span class="text-danger">{{academic_year}}</span>) </i> </h3>
+                        </div>
+                            <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                             <input type="text" name="sequence" value="{{result.sequence}}" class="hidden">
+                    <input type="text" name="academic_year" value="{{result.academic_year}}" class="hidden">
+                             <td><input type="text" name="course_id" value="{{course.id}}" class="hidden"></td>
+                        </div>
+
+                        <hr class="line">
+      <div class="row">
+          <div class="col-md-4">
+                    <div class="container" style="margin-left:0px;">
+	<div class="btn-group sort-btn">
+		<button class="btn btn-rounded btn-primary" type="button"  data-sort="none" aria-haspopup="true" aria-expanded="false">Trier</button>
+		<button class="btn btn-rounded btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sort"></i></button><!-- .dropdown-toggle adds rounded borders and reduces padding. It does not trigger dropdowns. -->
+		<ul class="dropdown-menu shadow" style="margin-left:-115px;width:200px;">
+			<li style="text-align:center;">
+                <form action="{% url 'download sorted student result' %}" method="get">
+                     <input type="text" value="ordre de merit" class="hidden" name="choice">
+                     <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">ordre de merit</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'download sorted student result' %}" method="get">
+                    <input type="text" value="ordre alphabetique" class="hidden" name="choice">
+                      <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">ordre alphabetique</button>
+                </form>
+            </li>
+		</ul>
+	</div>
+</div>
+                    </div>
+
+           <div class="col-md-4">
+              <form action="{% url 'download student result' %}" method="get">
+               <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                       <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                       <input type="text" name="academic_year" value="{{academic_year}}" class="hidden">
+                                <div class="row">
+                                        <button type="submit" class="btn btn-rounded btn-gradient-success" style="margin-left:50px;">Exporter en EXCEL</button>
+                            </div>
+              </form>
+                            </div>
+          <div class="col-md-4">
+              <form action="{% url 'download student result' %}" method="get">
+               <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                       <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                       <input type="text" name="academic_year" value="{{academic_year}}" class="hidden">
+                                <div class="row">
+                                        <button type="submit" class="btn btn-rounded btn-danger" style="margin-left:50px;">Telecharger la liste</button>
+                            </div>
+              </form>
+                            </div>
+
+
+      </div>
+
+
+      <hr class="line">
+                    <form action="{% url 'save student notes' %}" method="get">
+       <input type="text" name="teacher_sequence_id" value="{{teacher_sequence_id}}" class="hidden">
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                       <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                       <input type="text" name="academic_year" value="{{academic_year}}" class="hidden">
+                    <table class="table table-striped table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th>
+
+                        </th>
+                        <th style="text-align:center;">
+                          Noms et prenoms
+                        </th>
+                          <th>
+                            Notes (<strong class="text-danger"> /20 </strong>)
+                        </th>
+                          <th style="text-align:center;">
+                              Mention
+                          </th>
+
+                          <th style="text-align:center;">
+                              Genre
+                          </th>
+                          <th style="text-align:center;">
+                              Date de naissance
+                          </th>
+                          <th style="text-align:center;">
+                              Lieu de naissance
+                          </th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                     {% for result in results %}
+                    <tr>
+                        <td style="text-align:center;">{{forloop.counter}}</td>
+                        <td style="text-align:center;"><strong>{{result.student.first_name}}   {{result.student.last_name}}</strong></td>
+
+
+                          <td>
+                              {% if result.mark or result.mark2 %}
+                                {% if sequence == '2 eme Sequence' or '4 eme Sequence' or '6 eme Sequence' %}
+                                            {% if result.mark2 >= 10 %}
+                                            <input type="text" name="mark" class="form-control text-success" style="text-align:center;width:100px;border:1px solid #e3e9ed;" value="{{result.mark2}}">
+                                            {% else %}
+                                            <input type="text" name="mark" class="form-control text-danger" style="width:100px;border:1px solid #e3e9ed;text-align:center;" value="{{result.mark2}}">
+                                            {% endif %}
+                                {% else %}
+                                            {% if result.mark >= 10 %}
+                                            <input type="text" name="mark" class="form-control text-success" style="text-align:center;width:100px;border:1px solid #e3e9ed;" value="{{result.mark}}">
+                                            {% else %}
+                                            <input type="text" name="mark" class="form-control text-danger" style="width:100px;border:1px solid #e3e9ed;text-align:center;" value="{{result.mark}}">
+                                            {% endif %}
+                              {% endif %}
+
+                                {% else %}
+                                <input type="text" name="mark" class="form-control" style="text-align:center;width:100px;border:1px solid #e3e9ed" value="00">
+                                {% endif %}
+
+                          </td>
+                            {% if sequence != '2 eme Sequence' and sequence != '4 eme Sequence' and sequence != '6 eme Sequence' %}
+                        <td style="text-align:center;">
+                            {% if result.mark %}
+                            {% if result.mark >= 18 and result.mark <= 20 %}
+                            <strong style="color:green">Excellent</strong>
+                                {% endif %}
+                            {% if result.mark >= 16 and result.mark < 18 %}
+                            <strong style="color:green">Très Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 13 and result.mark < 16 %}
+                            <strong class="text-success">Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 9 and result.mark <= 12 %}
+                            <strong class="text-warning">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark >= 6 and result.mark <= 8 %}
+                            <strong class="text-danger">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark >= 0 and result.mark <= 5 %}
+                            <strong style="color:red;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong>aucune</strong>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+
+                        {% if sequence == '2 eme Sequence' or sequence == '4 eme Sequence' or sequence == '6 eme Sequence' %}
+                            <td style="text-align:center;">
+                            {% if result.mark2 %}
+                                {% if result.mark2 >= 18 and result.mark2 <= 20 %}
+                            <strong style="color:green">Excellent</strong>
+                                {% endif %}
+                            {% if result.mark2 >= 16 and result.mark2 < 18 %}
+                            <strong style="color:green">Très Bien</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 13 and result.mark2 < 16 %}
+                            <strong class="text-success">Bien</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 9 and result.mark2 <= 12 %}
+                            <strong class="text-warning">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 6 and result.mark2 <= 8 %}
+                            <strong class="text-danger">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 0 and result.mark2 <= 5 %}
+                            <strong style="color:red;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong>aucune</strong>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+
+                        <td style="text-align:center;">
+                            {{result.student.gender}}
+                        </td>
+                        <td style="text-align:center;">
+                            {{result.student.date_of_birth}}
+                        </td>
+                        <td style="text-align:center;">
+                            {{result.student.place_of_birth}}
+                        </td>
+                          <td class="hidden">
+                              <input type="text" name="student_id" value="{{student.id}}" class="hidden">
+                          </td>
+
+
+                      </tr>
+                {% endfor %}
+
+                    </tbody>
+                    </table>
+                        <hr class="line">
+                <button type="submit" class="btn btn-gradient-success btn-icon-text">
+                          <i class=" mdi mdi-account-check"></i>
+                          sauvegarder
+                        </button>
+
+
+                </form>
+
+                </div>
+
+              </div>
+            </div>
+
+{% endblock %}

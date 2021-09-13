@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                      <div class="row">
+
+                        <div class="col-md-6" style="text-align:center;">
+                            <form action="#" method="get">
+                            <button type="submit" class="btn btn-success">Exporter en excel</button>
+                         </form></div>
+
+                         <div class="col-md-6"  style="text-align:center;">
+                             <form action="{% url 'download hour list' %}" method="get">
+                                   <input type="text" name="id" value="{{classroom.id}}" class="hidden">
+                                <input type="text" name="year" value="{{year}}" class="hidden">
+                                <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                            <button type="submit" class="btn btn-danger">Telecharger le pdf</button>
+                         </form>
+                         </div>
+
+                    </div>
+                    <hr class="line">
+                        <form action="{% url 'download student result' %}" method="get">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3><img src="{% static 'Mainapp/images/textbook.png' %}" class="heading-icon">Heures d'absences de la {{classroom.name}}  *  <i>{{sequence}} - (<span class="text-danger">{{year}}</span>)  </i></h3>
+                        </div>
+
+                        </div>
+                        </form>
+  <form action="{% url 'save hours' %}" method="get">
+                   <input type="text" name="class_id" value="{{classroom.id}}" class="hidden">
+                       <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+      <input type="text" name="year" value="{{year}}" class="hidden">
+                        <hr class="line">
+                    <p style="text-align:center;">Entrez les heure d'absences de chaque eleve et validez le formulaire</p>
+                    <hr class="line">
+                    <table class="table table-striped table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center;" colspan="2">Noms et prenoms</th>
+                          <th style="text-align:center;">Genre</th>
+                          <th style="text-align:center;">Date de naissance</th>
+                          <th style="text-align:center;">Lieu de naissance</th>
+                          <th style="text-align:center;">Heures d'absences</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                     {% for student in classroom.students.all %}
+                    <tr>
+                        <td style="text-align:center;">{{forloop.counter}}</td>
+                        <td style="text-align:center;"><strong>{{student.first_name}} {{student.last_name}}</strong></td>
+                        <td style="text-align:center;">{{student.gender}}</td>
+                        <td style="text-align:center;">{{student.date_of_birth}}</td>
+                        <td style="text-align:center;">{{student.place_of_birth}}</td>
+
+                        {% for hours in student.absent_hours.all %}
+                        {% if hours.year == year and hours.sequence == sequence %}
+                        <td style="text-align:center;">
+                            <input type="text" class="form-control" value="{{hours.hours_no}}" name="hours" style="width:100px;text-align:center;">
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                          <td class="hidden" style="text-align:center;"><input type="text" name="student_id" value="{{student.id}}" class="hidden"></td>
+                      </tr>
+                {% endfor %}
+
+                    </tbody>
+                    </table>
+                        <hr class="line">
+      <div style="text-align:center;">
+                <button type="submit" class="btn btn-gradient-success btn-icon-text">
+                          <i class=" mdi mdi-account-check "></i>
+                          + sauvegarder
+                        </button>
+      </div>
+
+                </form>
+
+                </div>
+
+              </div>
+            </div>
+
+{% endblock %}

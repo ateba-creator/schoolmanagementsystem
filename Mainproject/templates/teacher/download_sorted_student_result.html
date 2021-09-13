@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 12px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 200;
+                text-align: center;
+                color: black;
+                text-decoration:underline;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            table{
+            border:1px solid black;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>LISTE DES NOTES DE <strong>{{course.name}}</strong> DE LA {{course.classroom.name}}</p>
+                <strong style="text-align:center;">{{sequence}} - ( {{academic_year}} ) {{choice}}</strong>
+            </div>
+        <div>
+        <div class='details'>
+ <table>
+                    <thead>
+                      <tr>
+                          <th>
+                            N0
+                          </th>
+                        <th>
+                          Nom et prenoms
+                        </th>
+                          <th>
+                              Notes
+                          </th>
+                          <th>
+                              Genre
+                          </th>
+                      </tr>
+
+
+                    </thead>
+                    <tbody>
+                    {% for result in results %}
+                        <tr style="padding:3px;">
+                        <td style="width:50px;text-align:center;font-size:13px;">
+                            <strong>{{forloop.counter}}</strong>
+                        </td>
+                            <td style="text-transform:uppercase;width:350px;text-align:center;padding:3px;">
+                                <strong>{{result.student.first_name}} {{result.student.last_name}}</strong>
+                            </td>
+                            <td style="text-align:center;">
+                                <strong>{{result.mark}}</strong>
+                        </td>
+                            <td style="text-align:center;">
+                                {{result.student.gender}}
+                            </td>
+                      </tr>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+            <hr class='hrItem' />
+        </div>
+    </div>
+        </div>
+    </body>
+</html>

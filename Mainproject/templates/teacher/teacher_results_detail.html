@@ -1,0 +1,174 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+ {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+ {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                            <h3 style="text-align:center;">Notes de <strong class="text-primary">{{course.name}}</strong> de la <strong class="text-primary">{{course.classroom.name}}</strong>{% if course.teacher.gender == 'masculin' %}  - Mr. {{course.teacher.first_name}} {% else %} - Mme. {{course.teacher.first_name}} {% endif %}</h3>
+                    <hr class="line">
+                    <form method="get" action="{% url 'upload notes' %}">
+                            <h4><img src="{% static 'Mainapp/images/add.png' %}" class="heading-icon"> Ajouter des notes</h4>
+                        <p class="card-description">Pour ajouter des resultats, selectionez l'annee scholaire et la sequence ety ensuite clickez sur <code>Ajouter de notes</code> </p>
+                        <div class="row">
+                                <div class="col-md-2">
+                                    <select name="academic_year" class="form-control text-dark" style="width:100px;">
+                                        <option>2021/2022</option>
+                                        <option>2022/2023</option>
+                                        <option>2023/2024</option>
+                                        <option>2024/2025</option>
+                                        <option>2025/2026</option>
+                                        <option>2026/2027</option>
+                                    </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="sequence" class="form-control text-dark" style="text-align:center;">
+                                <option>1 ere Sequence</option>
+                                <option>2 eme Sequence</option>
+                                <option>3 eme Sequence</option>
+                                <option>4 eme Sequence</option>
+                                <option>5 eme Sequence</option>
+                                <option>6 eme Sequence</option>
+                            </select>
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                        </div>
+                            <div class="col-md-5">
+                            <button type="submit" class="btn btn-gradient-success" style="width:200px;margin-left:230px;">Ajouter des notes</button>
+                        </div>
+                        </div>
+                         <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                         </form>
+
+                    <hr class="line">
+
+                    <form method="get" action="{% url 'get notes' %}">
+                           <h4><img src="{% static 'Mainapp/images/clipboard.png' %}" class="heading-icon"> Liste des notes deja enregistrees</h4>
+                        <p class="card-description">Pour voir la liste des notes que vous avez deja enregistre , selectionez l'annee scholaire et la sequence</p>
+                        <div class="row">
+                                <div class="col-md-2">
+                                    <select name="academic_year" class="form-control text-dark" style="width:100px;">
+                                        <option>2021/2022</option>
+                                        <option>2022/2023</option>
+                                        <option>2023/2024</option>
+                                        <option>2024/2025</option>
+                                        <option>2025/2026</option>
+                                        <option>2026/2027</option>
+                                    </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="sequence" class="form-control text-dark" style="text-align:center;">
+                                <option>1 ere Sequence</option>
+                                <option>2 eme Sequence</option>
+                                <option>3 eme Sequence</option>
+                                <option>4 eme Sequence</option>
+                                <option>5 eme Sequence</option>
+                                <option>6 eme Sequence</option>
+                            </select>
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                        </div>
+                            <div class="col-md-5">
+                            <button type="submit" class="btn btn-gradient-primary" style="width:200px;margin-left:230px;">Obtenir les notes</button>
+                        </div>
+                        </div>
+                         <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                         </form>
+
+
+
+{% if results %}
+
+
+                    <table class="table table-bordered" id="new_table">
+                    <thead>
+                    <tr>
+                          <th style="text-align:center" colspan="3">Liste des resultats de {{course.name}} </th>
+                        <th style="text-align:center;">Supression</th>
+                      </tr>
+
+                    </thead>
+                         <tbody>
+                          {% for result in results %}
+                          <form method="get" action="{% url 'student results detail' %}">
+                              <input type="text" name="sequence" value="{{result.sequence}}" class="hidden">
+                    <input type="text" name="teacher_sequence_id" value="{{result.id}}" class="hidden">
+                    <input type="text" name="academic_year" value="{{result.academic_year}}" class="hidden">
+                        <tr>
+                            <td style="text-align:center;">{{forloop.counter}}</td>
+                            <td style="text-align:center;">{{result.course.name}} - {{result.sequence}} <span class="badge badge-danger">{{result.academic_year}}</span></td>
+                            <td class="hidden"><input type="text" name="course_id" value="{{result.course.id}}"></td>
+                            <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-primary btn-sm">Detail</button>
+                            </td>
+                            </form>
+                            <td style="text-align:center;">
+
+                                 <form action="{% url 'delete result' %}" method="get">
+                            <div class="md-modal md-effect-15 " id="modal-{{result.id}}">
+                                <div class="md-content">
+                                    <h3>Confirmation de supression</h3>
+                                    <div>
+                                        <h5>Confirmez vous vouloir suprimmer definitivement la classe les notes de {{result.course.name}} de la {{result.sequence}} ?</h5>
+                                        <ul>
+                                            <li><strong>NB : </strong>Cette action est irreversible</li>
+                                            <li><strong></strong> Toutes les donnees relatives a cette classe (notes sequentielle, enseignant, departement seront perdue )</li>
+                                        </ul>
+                                        <input type="text" value="{{classroom.id}}" class="hidden" name="class_id">
+                                          <input type="text" value="{{result.id}}" class="hidden" name="result_id">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-danger btn-rounded" style="background-color:red;color:white;">Toujour suprimmer</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="md-close btn btn-danger btn-rounded" style="width:199px;background-color:white;color:#fe7c96;">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                       <input type="text" value="{{result.course.id}}" name="id" class="hidden">
+                         <button type="button" class="btn btn-gradient-danger btn-sm md-trigger" data-modal="modal-{{result.id}}">suprimmer</button>
+                                 </form>
+
+
+                            </td>
+                      </tr>
+                        {% endfor %}
+                         <hr class="line">
+                         </tbody>
+                     </table>
+
+                    {% else %}
+                     <div class="row" style="margin-top:30px;">
+            <div class="col-12">
+                   <div class="alert alert-danger" style="text-align:center;">Non disponible !</div>
+            </div>
+          </div>
+                    {% endif %}
+
+
+                      <hr class="line">
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

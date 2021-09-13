@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/student.png' %}" class="heading-icon">Resultat des evaluations </h3>
+                    <hr class="line">
+                        <div class="col-md-12">
+                     <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center" colspan="2">
+                          Nom de la matiere
+                        </th>
+                          <th style="text-align:center">Classe </th>
+                          <th style="text-align:center">Nombre d'eleves </th>
+                          <th></th>
+                      </tr>
+
+                    </thead>
+
+                         <tbody>
+
+ {% for course in courses %}
+                        <tr>
+ <form action="{% url 'teacher results detail' %}" method="get">
+     <td style="text-align:center">{{forloop.counter}}</td>
+                          <td style="text-align:center;">
+                              <strong>{{course.name}}</strong>
+                        </td>
+                          <td style="text-align:center">
+                              {{course.classroom.name}}
+                          </td>
+                          <td style="text-align:center;">
+                            <strong class="text-danger"  style="font-size:20px;">{{course.classroom.students.all.count}}</strong>
+                          </td>
+                            <input type="text" value="{{course.id}}" name="id" class="hidden">
+                          <td style="text-align:center;">
+                              <button type="submit" class="btn btn-inverse-primary btn-sm">+ Notes</button>
+                          </td>
+                    </form>
+                      </tr>
+
+         {% endfor %}
+                         </tbody>
+                     </table>
+                        </div>
+
+                      <hr class="line">
+                    {% if group.name == 'administrateur' %}
+                      <div class="row">
+                           <div class="col-md-6">
+                    <button type="submit" class="btn btn-gradient-primary mr-2" style="width:400px;">Modifier</button>
+                           </div>
+                          <div class="col-md-6">
+                    <button type="submit" class="btn btn-gradient-danger mr-2" style="width:400px;">Suprimmer</button>
+                           </div>
+                      </div>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

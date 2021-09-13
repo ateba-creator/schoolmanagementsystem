@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <div class="row">
+
+                        <div class="col-md-6" style="text-align:center;">
+                            <form action="#" method="get">
+                            <button type="submit" class="btn btn-success">Exporter en excel</button>
+                         </form></div>
+
+                         <div class="col-md-6"  style="text-align:center;">
+                             <form action="{% url 'download hour list' %}" method="get">
+                                  <input type="text" name="id" value="{{classroom.id}}" class="hidden">
+                                <input type="text" name="year" value="{{year}}" class="hidden">
+                                <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                            <button type="submit" class="btn btn-danger">Telecharger le pdf</button>
+                         </form>
+                         </div>
+
+                    </div>
+                    <hr class="line">
+                        <form action="{% url 'download student result' %}" method="get">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3><img src="{% static 'Mainapp/images/textbook.png' %}" class="heading-icon">Heures d'absences de la {{classroom.name}}  *  <i>{{sequence}} - (<span class="text-danger">{{year}}</span>)  </i></h3>
+                        </div>
+
+                        </div>
+                        </form>
+  <form action="{% url 'upload hours' %}" method="get">
+                   <input type="text" name="class_id" value="{{classroom.id}}" class="hidden">
+                       <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+      <input type="text" name="year" value="{{year}}" class="hidden">
+
+                    <hr class="line">
+                    <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center;padding:6px;" colspan="2" rowspan="2">Noms et prenoms</th>
+                           <th style="padding:15px;text-align:center;padding:6px;"  rowspan="2">Genre</th>
+                        <th style="padding:15px;text-align:center;padding:6px;"  rowspan="2">Heures d'absences</th>
+                          <th style="text-align:center;padding:6px;" colspan="8" class="text-danger">Conclusion</th>
+                      </tr>
+                    <tr>
+                        <th style="text-align:center;padding:6px;"><i>Heures d'exclusion</i></th>
+                        <th style="text-align:center;padding:6px;"><i>Jours d'exclusion</i></th>
+                        <th style="text-align:center;padding:6px;"><i>Convocation</i></th>
+                        <th style="text-align:center;padding:6px;"><i>Exclusion definitive</i></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                     {% for student in classroom.students.all %}
+                    <tr>
+                        <td style="text-align:center;">{{forloop.counter}}</td>
+                        <td style="text-align:center;"><strong>{{student.first_name}} {{student.last_name}}</strong></td>
+                        <td style="text-align:center;">{{student.gender}}</td>
+
+                        {% for hours in student.absent_hours.all %}
+                        {% if hours.year == year and hours.sequence == sequence %}
+                        <td style="text-align:center;">
+                            <strong style="font-size:16px;" class="text-primary">{{hours.hours_no}}</strong>
+                        </td>
+
+                        <td class="text-danger" style="text-align:center;">
+                            <strong style="font-size:16px;">{{hours.hr_exclusions}}</strong>
+                        </td>
+
+                        <td class="text-danger" style="text-align:center;">
+                              <strong style="font-size:16px;">{{hours.jr_exclusions}}</strong>
+                        </td>
+                        <td style="text-align:center;">
+                            {% if hours.def_exclusion == True %}
+<i class=" mdi mdi-check-all " style="font-size:20px;color:red"></i>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center;">
+                            {% if hours.convocation == True %}
+                            <i class=" mdi mdi-check-all " style="font-size:20px;color:red"></i>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                          <td class="hidden" style="text-align:center;"><input type="text" name="student_id" value="{{student.id}}" class="hidden"></td>
+                      </tr>
+                {% endfor %}
+
+                    </tbody>
+                    </table>
+                        <hr class="line">
+      <div style="text-align:center;">
+                <button type="submit" class="btn btn-gradient-primary btn-icon-text">
+                          <i class=" mdi mdi-account-check "></i>
+                          Modifier
+                        </button>
+      </div>
+
+                </form>
+
+                </div>
+
+              </div>
+            </div>
+
+{% endblock %}

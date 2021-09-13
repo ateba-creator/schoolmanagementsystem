@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/calendar.png' %}" class="heading-icon">Ajouter des heures d'absences a la {{classroom.name}} </h3>
+                    <hr class="line">
+                    <h4 style="text-align:center;">Entrez l'annee scholaire et la sequence</h4>
+                    <hr class="line">
+
+                    <form method="get" action="{% url 'upload hours' %}">
+                        <input type="text" name="class_id" class="hidden" value="{{classroom.id}}">
+                    <div class="row">
+                    <div class="col-md-6">
+                        <label>Annee scholaire</label>
+                        <select name="year" class="form-control text-dark" style="text-align:center;">
+                            <option>2021/2022</option>
+                            <option>2022/2023</option>
+                            <option>2023/2024</option>
+                            <option>2024/2025</option>
+                            <option>2025/2026</option>
+                            <option>2026/2027</option>
+                        </select>
+                    </div>
+
+                          <div class="col-md-6">
+                              <label>Sequence</label>
+                              <select name="sequence" class="form-control text-dark" style="text-align:center;">
+                                  <option>1 ere Sequence</option>
+                                  <option>2 eme Sequence</option>
+                                  <option>3 eme Sequence</option>
+                                  <option>4 eme Sequence</option>
+                                  <option>5 eme Sequence</option>
+                                  <option>6 eme Sequence</option>
+                              </select>
+                    </div>
+                    </div>
+
+                    <hr class="line">
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn btn-gradient-primary">+ Ajouter</button>
+                    </div>
+                    </form>
+
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

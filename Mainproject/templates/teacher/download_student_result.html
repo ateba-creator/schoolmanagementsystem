@@ -1,0 +1,195 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 12px;
+                 font-family: Courier New;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 200;
+                text-align: center;
+                color: black;
+                text-decoration:underline;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+               line-height:16%;
+               padding:10px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+
+            .image-heading{
+    height:auto;
+    width:145px;
+    zoom:100%;
+    text-align:center;
+}
+
+        </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr style="text-align:center;">
+        <td style="text-align:left;">
+            <strong>REPUBLIQUE DU CAMEROUN</strong>
+            <strong>PAIX - TRAVAIL - PATRIE</strong>
+            <strong>MINISTERE DES ENSEIGNEMENTS SECONDAIRES </strong>
+
+        </td>
+        <td><img src="static/Mainapp/images/ministry.jpg" class="image-heading"></td>
+        <td style="text-align:right;">
+            <strong>REPUBLIC OF CAMEROON</strong>
+            <strong>PEACE - WORK - FATHERLAND</strong>
+            <strong>MINISTRY OF SECONDARY EDUCATION </strong>
+
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<h2 style="margin-top:40px;"><center>LYCEE BILINGUE DE BAFIA / GOVERNMENT BILINGUAL HIGH SCHOOL BAFIA
+</center></h2>
+<hr>
+<div class='wrapper' style="text-align:center;">
+    <h1 style="background-color:#f2f2f2;padding:10px;line-height:16%;border:1px solid grey;"><strong>NOTES DE {{course.name}} - {{sequence}} ({{academic_year}})</strong> / {{course.classroom.name}}</h1>
+    <div>
+        <hr>
+        <div class='details'>
+            <table>
+                <thead>
+                <tr>
+                    <th style="background-color:#f2f2f2;border:1px solid black;">
+
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;width:25%;">
+                        Nom et prenoms
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;width:25%;">
+                        Notes
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;width:25%;">
+                        Mention
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;">
+                        Genre
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;width:28%;">
+                        Date de naissance
+                    </th>
+                    <th style="background-color:#f2f2f2;border:1px solid black;width:28%;">
+                        Lieu de naissance
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in results %}
+                <tr style="padding:3px;">
+                    <td style="width:20px;text-align:center;line-height:16%;border:1px solid black;">
+                        <strong>{{forloop.counter}}</strong>
+                    </td>
+                    <td style="text-align:center;text-transform:uppercase;line-height:16%;border:1px solid black;">
+                        <strong>{{result.student.first_name}} {{result.student.last_name}}</strong>
+                    </td>
+                    {% if sequence != '1 ere Sequence' and sequence != '3 eme Sequence' and sequence != '5 eme Sequence' %}
+                    <td style="text-align:center;text-transform:uppercase;line-height:16%;border:1px solid black;">
+                        <strong>{{result.mark2}}</strong>
+                    </td>
+                    <td style="border:1px solid black;text-align:center;line-height:16%">
+                            {% if result.mark2 %}
+                            {% if result.mark2 >= 16 and result.mark2 < 20 %}
+                            <strong style="color:green;font-size:12px;">Très Bien</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 13 and result.mark2 < 16 %}
+                            <strong class="text-success" style="font-size:12px;">Bien</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 9 and result.mark2 <= 12 %}
+                            <strong class="text-warning" style="font-size:12px;">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 6 and result.mark2 <= 8 %}
+                            <strong class="text-danger" style="font-size:12px;">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark2 >= 0 and result.mark2 <= 5 %}
+                            <strong style="color:red;font-size:12px;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong style="text-align:center;font-size:12px;">NULL</strong>
+                            {% endif %}
+                        </td>
+                    {% else %}
+                    <td style="text-align:center;text-transform:uppercase;line-height:16%;border:1px solid black;">
+                        <strong>{{result.mark}}</strong>
+                    </td>
+                    <td style="border:1px solid black;text-align:center;line-height:16%">
+                            {% if result.mark %}
+                            {% if result.mark >= 16 and result.mark < 20 %}
+                            <strong style="color:green;font-size:12px;">Très Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 13 and result.mark < 16 %}
+                            <strong class="text-success" style="font-size:12px;">Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 9 and result.mark <= 12 %}
+                            <strong class="text-warning" style="font-size:12px;">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark >= 6 and result.mark <= 8 %}
+                            <strong class="text-danger" style="font-size:12px;">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark >= 0 and result.mark <= 5 %}
+                            <strong style="color:red;font-size:12px;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong style="text-align:center;font-size:12px;">NULL</strong>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+
+
+
+                    <td style="line-height:16%;text-align:center;border:1px solid black;width:100px;">
+                        {{result.student.gender}}
+                    </td>
+                    <td style="text-align:center;line-height:16%;border:1px solid black;">
+                        {{result.student.date_of_birth}}
+                    </td>
+                    <td style="text-align:center;line-height:16%;border:1px solid black;">
+                        {{result.student.place_of_birth}}
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <hr class='hrItem' />
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+{% if classrooms %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Liste de vos classes !</h3>
+                    <hr class="line">
+                    <table class="table table-bordered table-striped" id="new_table">
+                    <thead>
+                      <tr>
+                        <th  style="text-align:center;" colspan="2">
+                          Classes
+                        </th>
+                          <th  style="text-align:center;">
+                          Prof pricipal
+                        </th>
+                        <th style="text-align:center;">
+                          Nombre d'eleves
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for class in classrooms %}
+                    <form method="get" action="{% url 'class detail' %}">
+                    {% csrf_token %}
+                        <tr>
+                        <td style="text-align:center;">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center;">
+                                <strong>{{class.name}}</strong>
+                            </td>
+                            {% if class.main_teacher %}
+                            <td style="text-align:center;">
+                                {% if class.main_teacher.gender == 'masculin' %}
+                               Mr. {{class.main_teacher.first_name}}
+                                {% else %}
+                               Mme. {{class.main_teacher.first_name}}
+                                {% endif %}
+                            </td>
+                            {% else %}
+                            <td style="text-align:center;" class="text-danger">aucun</td>
+                            {% endif %}
+                            <td style="text-align:center;font-size:20px;">
+                                <strong class="text-danger">{{class.students.all.count }}</strong>
+                            </td>
+                            <td class="hidden">
+                            <input type="text" name="id" value="{{class.id}}">
+                            </td>
+                            <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-primary btn-sm">details</button>
+                        </td>
+                      </tr>
+                    </form>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% else %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                     <div class="row">
+                        <div class="col-md-7">
+                  <h4 class="card-title"><i class=" mdi mdi-arrange-bring-forward " style="font-size:30px;padding-right:30px;color:#9a55ff"></i>Vous n'etes assigne aucune classe pour le moment</h4>
+                        </div>
+                     </div>
+                </div>
+              </div>
+</div>
+{% endif %}
+{% endblock %}

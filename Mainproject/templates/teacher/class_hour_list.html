@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+{% if user.classrooms %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Choissisez une classe pour voir la liste des heures d'absences !</h3>
+                    <hr class="line">
+                    <table class="table table-bordered table-striped" id="new_table">
+                    <thead>
+                      <tr>
+                        <th  style="text-align:center;" colspan="2">Classes</th>
+                          <th  style="text-align:center;">Section</th>
+                          <th  style="text-align:center;">Serie</th>
+                        <th style="text-align:center;">Nombre d'eleves</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for class in user.classrooms.all %}
+                    <form method="get" action="{% url 'class hours' %}">
+                    {% csrf_token %}
+                        <tr>
+                        <td class="py-1" style="text-align:center;">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center;">
+                                <strong>{{class.name}}</strong>
+                            </td>
+                            <td style="text-align:center;">
+                                <strong>{{class.section}}</strong>
+                            </td>
+                            <td style="text-align:center;">
+                                <strong>{{class.group_type}}</strong>
+                            </td>
+
+                            <td style="text-align:center;font-size:20px;">
+                                <strong class="text-danger">{{class.students.all.count }}</strong>
+                            </td>
+                            <td class="hidden">
+                            <input type="text" name="id" value="{{class.id}}">
+                            </td>
+                            <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-success">liste</button>
+                        </td>
+                      </tr>
+                    </form>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% else %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                     <div class="row">
+                        <div class="col-md-7">
+                  <h3><img src="{% static 'Mainapp/images/textbook.png' %}" class="heading-icon">Vous n'etes assigne a aucune classe pour l'instant</h3>
+                        </div>
+                     </div>
+                         <hr class="line">
+                         <div class="row">
+                         <div class="col-md-5">
+                             <p class="card-description" style="margin-left:100px;">Si le problem persiste veillez contacter l'administration</p>
+                        </div>
+                             <div class="col-md-6">
+                                 <a href="#" class="btn btn-success" style="margin-left:230px;">Contacter l'administration</a>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+              </div>
+{% endif %}
+{% endblock %}

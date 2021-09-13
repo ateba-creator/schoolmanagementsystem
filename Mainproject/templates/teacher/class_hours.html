@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Liste d'heures d'absences de la {{classroom.name}} !</h3>
+                    <hr class="line">
+                    <table class="table table-bordered table-hover" id="new_table">
+                    <thead>
+                      <tr>
+                          <th></th>
+                        <th style="text-align:center;">Heures d'absences</th>
+                      </tr>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for hours in all_hours %}
+                    <form method="get" action="{% url 'hour list' %}">
+                    {% csrf_token %}
+                        <tr>
+                        <td class="py-1" style="text-align:center;">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center;">
+                                <strong>{{hours.sequence}} - {{hours.year}}</strong>
+                            </td>
+                            <td class="hidden">
+                            <input type="text" name="id" value="{{classroom.id}}">
+                                <input type="text" name="year" value="{{hours.year}}">
+                                <input type="text" name="sequence" value="{{hours.sequence}}">
+                            </td>
+                            <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-success">details</button>
+                        </td>
+                      </tr>
+                    </form>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+{% endblock %}
