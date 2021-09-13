@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+<div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow login100-more1" style="background-image: url('{% static 'Mainapp/images/water.png' %}')">
+                    <div class="box" style="top:70px;">
+                    <img src="{% static 'Mainapp/images/ministry.jpg' %}" style="border-radius:100%;height:500px;width:750px;">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div style="font-size:12px;margin-top:-13px;"><strong>REPUBLIC OF CAMEROON</strong></div>
+                            <i style="font-size:12px;">PEACE - WORK - FATHERLAND</i>
+                            <hr class="line" style="margin-top:0px;">
+                            <div style="font-size:12px;margin-top:-11px;"><strong>MINISTRY OF SECONDARY EDUCATION</strong></div>
+                            <i style="font-size:12px;">CENTRE REGIONAL DELEGATION</i>
+                            <hr class="line" style="margin-top:0px;">
+                        </div>
+                        <div class="col-md-4" style="text-align:center;">
+                            <img src="{% static 'Mainapp/images/ministry.jpg' %}" style="width:150px;height:100px;border-radius:100%">
+                        </div>
+                        <div class="col-md-4" style="text-align:right;">
+                             <div style="font-size:12px;margin-top:-13px;text-align:right;"><strong>REPUBLIQUE DU CAMEROUN</strong></div>
+                            <i style="font-size:12px;text-align:right;">PAIX - TRAVAIL - PATRIE</i>
+                            <hr class="line" style="margin-top:0px;">
+                            <div style="font-size:12px;margin-top:-11px;text-align:right;width:300px;"><strong>MINISTERE DES ENSEIGNEMENTS SECONDAIRES</strong></div>
+                            <i style="font-size:12px;text-align:right;">DELEGATION REGIONALE DU CENTRE</i>
+                            <hr class="line" style="margin-top:0px;">
+                            </div>
+                    </div>
+                    <div style="text-align:center;">
+                        <h2 class="honor-header">LYCEE BILINGUE DE BAFIA</h2>
+                        <h3>GOVERNMENT BILINGUAL HIGH SCHOOL BAFIA</h3>
+                        <i>B.P. / PO Box : 327 Bafia Tel.Phone:222 28 51 75 / 678 90 58 73</i>
+                    </div>
+                    <div style="text-align:center;">
+                        <h1 style="font-family: Ubuntu-Bold;color:#fe7096">TABLEAU D'HONNEUR / ACADEMIC AWARD</h1>
+                    </div>
+                    <hr class="line">
+                    <div class="row" >
+                        <div class="col-md-4">
+                            <div>Atribue a l'eleve :</div>
+                            <span>Awarded to</span>
+                        </div>
+                        <div class="col-md-8">
+                            <strong style="font-family:Ubuntu-bold">{{roll.first_name}} {{roll.last_name}}</strong>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top:0px;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>Ne(e) le : <strong style="font-family:Ubuntu-Medium">{{roll.date_of_birth}}</strong></div>
+                                <span>Born on</span>
+                        </div>
+                        <div class="col-md-4">
+                            <div>A: <strong style="font-family:Ubuntu-Medium">{{roll.place_of_birth}}</strong></div>
+                                <span>At</span>
+                        </div>
+                        <div class="col-md-4">
+                            <div>Classe de : <strong style="font-family:Ubuntu-Medium">{{roll.classroom}}</strong></div>
+                                <span>Class</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>Pour : <strong style="font-family:Ubuntu-Medium;">{{roll.sequence}}</strong></div>
+                                <span>For the</span>
+                        </div>
+                        <div class="col-md-4">
+                            <div>Annee scholaire <strong style="font-family:Ubuntu-Medium;">{{roll.year}}</strong></div>
+                                <span>school term</span>
+                        </div>
+                        <div class="col-md-4">
+                            <div>Par le conseil de classe du : <strong style="font-family:Ubuntu-Medium;">28/03/2021</strong></div>
+                        </div>
+                    </div>
+                    <hr class="line">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>  Moyenne(s) obtenue(s) :  <strong style="font-family:Ubuntu-Medium;">{{roll.average}}/20</strong></div>
+                            <span>Average</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div>  Rang <strong style="font-family:Ubuntu-Medium;">{{roll.rank}}/{{roll.stud_no}}</strong> eleves</div>
+                            <span>rank</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>  Moyenne generale de la classe :  <strong style="font-family:Ubuntu-Medium;">{{roll.class_average}}/20</strong></div>
+                            <span>General class average</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="margin-left:0px;">  Bafia, le/on <strong style="font-family:Ubuntu-Medium;">{{roll.date}}</strong> </div>
+                            <span style="margin-left:0px;">rank</span>
+                        </div>
+                    </div>
+                    <hr class="line">
+                    <div class="row">
+                         <div class="col-md-8">
+                    <ul style="list-style-type:none">
+                        <li style="font-size:20px;">
+                            {% if roll.encouragement == True %}
+                            <img src="{% static 'Mainapp/images/check.png' %}" style="width:25px;height:25px;">
+                            {% else %}
+
+                            {% endif %}
+                            <strong style="padding-left:10px;color:#1bcfb4">Avec Encouragements / With encouragements</strong></li>
+
+                        <li style="font-size:20px;">
+                            {% if roll.congrats == True %}
+                            <img src="{% static 'Mainapp/images/check.png' %}" style="width:25px;height:25px;">
+                            {% else %}
+
+                            {% endif %}
+                            <strong style="padding-left:10px;color:#1bcfb4">Avec Felicitations / With Congratulations</strong></li>
+                    </ul>
+                    </div>
+                        <div class="col-md-4">
+                            <div>LE PROVISEUR / <i>THE PRINCIPAL</i></div>
+                            <div style="font-size:12px;"><i>President du conseil de classe / President of the class council</i></div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+
+
+{% endblock %}

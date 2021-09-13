@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 12px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 200;
+                text-align: center;
+                color: black;
+                text-decoration:underline;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+
+            .image-heading{
+    height:auto;
+    width:145px;
+    zoom:100%;
+    text-align:center;
+}
+
+        </style>
+    </head>
+    <body>
+    <table>
+                        <thead>
+                        <tr style="text-align:center;">
+                            <td style="text-align:left;">
+                                <strong>REPUBLIQUE DU CAMEROUN</strong>
+                                <strong>PAIX - TRAVAIL - PATRIE</strong>
+                                <strong>MINISTERE DES ENSEIGNEMENTS SECONDAIRES </strong>
+
+                            </td>
+                            <td><img src="static/Mainapp/images/ministry.jpg" class="image-heading"></td>
+                            <td style="text-align:right;">
+                                <strong>REPUBLIC OF CAMEROON</strong>
+                                <strong>PEACE - WORK - FATHERLAND</strong>
+                                <strong>MINISTRY OF SECONDARY EDUCATION </strong>
+
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+    <h1 style="margin-top:40px;"><center>LYCEE BILINGUE DE BAFIA</center></h1>
+    <hr>
+        <div class='wrapper' style="text-align:center;">
+          <h1 style="background-color:#f2f2f2;padding:10px;line-height:16%;border:1px solid #e3e9ed;">Liste des eleves de la {{classroom.name}} classes par ordre alphabetique</h1>
+        <div>
+            <hr>
+        <div class='details'>
+ <table>
+                    <thead>
+                      <tr>
+                          <th style="border:1px solid black;"></th>
+                        <th style="border:1px solid black;width:25%;">Nom et prenoms</th>
+                          <th style="border:1px solid black;">Genre</th>
+                          <th style="border:1px solid black;width:28%;">Date de naissance</th>
+                          <th style="border:1px solid black;width:28%;">Lieu de naissance</th>
+                           <th style="border:1px solid black;width:28%;">Status de pension</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in object_list %}
+                        <tr style="padding:3px;">
+                        <td style="width:20px;text-align:center;line-height:16%;border:1px solid black;">
+                            <strong>{{forloop.counter}}</strong>
+                        </td>
+                            <td style="text-align:center;text-transform:uppercase;line-height:16%;border:1px solid black;">
+                                <strong>{{student.first_name}} {{student.last_name}}</strong>
+                            </td>
+                            <td style="line-height:16%;text-align:center;border:1px solid black;width:100px;">
+                                {{student.gender}}
+                        </td>
+                            <td style="text-align:center;line-height:16%;border:1px solid black;">
+                                {{student.date_of_birth}}
+                        </td>
+                            <td style="text-align:center;line-height:16%;border:1px solid black;">
+                                {{student.place_of_birth}}
+                        </td>
+                             <td style="text-align:center;line-height:16%;border:1px solid black;">
+                                {% for fee in student.fee.all %}
+                                {% if fee.paid_fee == True %}
+                          <div class="badge badge-success">Paye'</div>
+                                {% else %}
+                                 <div class="badge badge-danger">Non paye'</div>
+                                {% endif %}
+                                {% endfor %}
+
+                        </td>
+                      </tr>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+            <hr class='hrItem' />
+        </div>
+    </div>
+        </div>
+    </body>
+</html>

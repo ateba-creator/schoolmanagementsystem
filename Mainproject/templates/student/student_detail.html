@@ -1,0 +1,332 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <div style="margin-top:-20px;">
+                    <h4 class="card-title">
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile" class="user-image">
+                        <div class="user-name">{{student.first_name}} {{student.last_name}}</div>
+                        <p class="card-description" style="margin-left:500px;margin-top:-40px;padding-bottom:10px;">Classe</p>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                        <div class="user-name-1">{{classroom.name}}
+                            <div class="row" style="font-size:17px;padding-top:10px;margin-left:-100px;">
+                        {% if classroom.main_teacher.gender == 'masculin' %}
+                            <div>Professeur pricipal : Mr. {{classroom.main_teacher}}</div>
+                        {% else %}
+                                <div class="text-dark"><strong style="color:black;">Professeur pricipal</strong> : Mme. {{classroom.main_teacher}}</div>
+                            {% endif %}
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+
+                        <div class="card-description" style="margin-left:155px;margin-top:-30px;">Genre : <strong>{{student.gender}}</strong></div>
+
+                    </h4>
+                </div>
+                    <hr class="line">
+                        <input type="text" value="{{teacher.id}}" class="hidden" name="id">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right:5px solid #ebedf2;">
+                            <h4 style="text-align:center;" class="text-info">Information academique</h4>
+                            <hr class="line">
+                     <table class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                          <th></th>
+                        <th style="text-align:center;">
+                          Matieres de {{student.first_name}}
+                        </th>
+                          <th style="text-align:center;">coefficient</th>
+                      </tr>
+                    </thead>
+                          <tbody>
+                      {% for course in student.course.all %}
+                      <tr>
+                        <td style="text-align:center;">
+                            {{forloop.counter}}
+                        </td>
+                        <td style="text-align:center;">
+                          {{course.name}}
+                        </td>
+                          <td style="text-align:center;">{{course.coeff}}</td>
+                      </tr>
+                            {% endfor %}
+                          </tbody>
+                     </table>
+                            <hr class="line">
+                            <h4 style="text-align:center;" class="text-info">Cartes d'identites</h4>
+                            <table class="table table-bordered">
+                                <hr class="line">
+                                <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align:center;">Carte d'identite</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for card in student.cards.all %}
+                                <form action="{% url 'student card' %}" method="get">
+                                <tr>
+                                    <input type="text" class="hidden" name="card_id" value="{{card.id}}">
+                                    <td style="text-align:center;">Carte d'identite scholaire</td>
+                                    <td>{{card.year}}</td>
+                                    <td style="text-align:center;">
+                                        <button type="submit" class="badge badge-success">Ouvrir</button>
+                                    </td>
+                                </tr>
+                                </form>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+
+
+                            <hr class="line">
+                            <h4 style="text-align:center;" class="text-info">Bulletins</h4>
+                            <hr>
+                                 <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th colspan="4" style="text-align:center;">
+                          Bulletins de {{student.first_name}} {{student.last_name}}
+                        </th>
+                      </tr>
+                    </thead>
+                          <tbody>
+                      {% for reportcard in student.report_card.all %}
+                      <form action="{% url 'student report card' %}" method="get">
+                      <tr>
+                        <td>
+                            {{forloop.counter}}
+                        </td>
+                        <td style="text-align:center;">
+                          {{reportcard.academic_year}}
+                            <input type="text" name="academic_year" value="{{reportcard.academic_year}}" class="hidden">
+                        </td>
+                          <td>{{reportcard.sequence}}</td>
+                          <input type="text" name="sequence" value="{{reportcard.sequence}}" class="hidden">
+                          <input type="text" name="student_id" value="{{student.id}}" class="hidden">
+                          <td><button type="submit" class="btn-primary" style="border:none;line-height:30px;border-radius:3px;">ouvrir</button></td>
+                      </tr>
+                      </form>
+                            {% endfor %}
+                          </tbody>
+                     </table>
+                     </div>
+
+                        <div class="col-md-6">
+
+                        <h4 style="text-align:center;" class="text-info">Information personel</h4>
+                            <hr class="line">
+                            <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Ecole d'origine</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.school_of_origin}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Address</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.address}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                               <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Religion</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.religion}}
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6">
+                                    <label>Nationalite</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.nationality}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Date de naissance</label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                    {{student.date_of_birth}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Lieu de naissance</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.place_of_birth}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                   <div class="col-md-6">
+                                    <label>matricule du ministere</label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                    {{student.matricule}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Status</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.status}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                   <div class="col-md-6">
+                                    <label>Departement</label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                    {{student.department}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Arrondissement</label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                    {{student.locality}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="line">
+                            <div class="row">
+                                   <div class="col-md-6">
+                                       <label><strong><i>Nom du tuteur</i></strong></label>
+                                    <div class="form-group">
+                                        <div class="label-info-normal">
+                                            {% if student.parent.gender == 'masculin' %}
+                                            <strong><i>Mr. {{student.parent.first_name}}</i></strong>
+                                            {% else %}
+                                            <strong><i>Mme. {{student.parent.first_name}}</i></strong>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                       <label><strong><i>Telephone du Parent</i></strong></label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                            <strong><i>{{student.parent.phone_no}}</i></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                       <label><strong><i>Noms du pere</i></strong></label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                            <strong><i>{{student.father_name}}</i></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                       <label><strong><i>Noms de la mere</i></strong></label>
+                                    <div class="form-group">
+                                        <div class="label-info">
+                                            <strong><i>{{student.mother_name}}</i></strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr class="line">
+                                {% if student.is_delete == False %}
+                            <div style="text-align:center;">
+                                <div class="row">
+                                     <form method="get" action="{% url 'modify student' %}">
+                                    <div class="col-md-6">
+                                         <form method="get" action="{% url 'modify student' %}">
+                                        <input type="text" name="student_id" class="hidden" value="{{student.id}}">
+                             <button type="submit" class="btn btn-gradient-primary mr-2">Modifier</button>
+                                    </form>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                       <form action="{% url 'delete student' %}" method="get">
+                            <div class="md-modal md-effect-15 " id="modal-0">
+                                <div class="md-content">
+                                    <h3>Confirmation de supression</h3>
+                                    <div>
+                                        <h5>Confirmez vous vouloir suprimmer definitivement l'eleve {{student.first_name}} {{student.last_name}} de la base de donnees ?</h5>
+                                        <ul>
+                                            <li><strong>NB : </strong>Cette action est irreversible</li>
+                                            <li><strong></strong> Toutes les donnees relatives a cette eleve (information personel, notes sequentielle, classe, bulletins de notes) etc </li>
+                                        </ul>
+                                        <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-danger btn-rounded" style="background-color:red;color:white;">Toujour suprimmer</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="md-close btn btn-danger btn-rounded" style="width:199px;background-color:white;color:#fe7c96;">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="text" value="{{student.id}}" name="stud_id" class="hidden">
+                            <button type="button" class="btn btn-gradient-danger md-trigger" data-modal="modal-0">Suprimmer</button>
+                        </form>
+                                    </div>
+                    </div>
+                            </div>
+                            {% else %}
+                            <form method="get" action="{% url 'restore student' %}">
+                                <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                                 <input type="text" value="{{student.id}}" name="student_id" class="hidden">
+                            <div style="text-align:center;">
+                                <button type="submit" class="btn btn-gradient-success">Restaurer le compte</button>
+                            </div>
+                            </form>
+
+                        {% endif %}
+                        </div>
+                      <hr class="line">
+                </div>
+              </div>
+              </div>
+         </div>
+{% endblock %}

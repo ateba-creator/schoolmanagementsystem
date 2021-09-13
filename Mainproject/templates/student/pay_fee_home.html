@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "info" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'Date limite de paiement des pensions scholaire' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+            </div>
+
+          </div>
+                {% endif %}
+{% endfor %}
+
+            <div class="row">
+              <div class="col-lg-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                        <div class="col-md-12">
+                    <h4><img src="{% static 'Mainapp/images/student.png' %}" class="heading-icon"> ELEVE : <span class="card-description">{{student.first_name}} {{student.last_name}}</span></h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h4><img src="{% static 'Mainapp/images/graduate.png' %}" class="heading-icon"> PARENT : <span class="card-description">{{student.parent.first_name}} {{student.parent.last_name}}</span></h4>
+                        </div>
+                    <hr class="line">
+                    <p class="card-description">
+                    Le parent poura payer la pension en ligne en se connectant avec les logins suivant
+                  </p>
+                    <hr class="line">
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="font-size:20px;text-align:center;">
+                          Numero de telephone
+                        </th>
+                        <th style="font-size:20px;text-align:center">
+                          Mot de passe
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="text-align:center;">
+                            <strong class="card-description" style="font-size:20px;">{{student.parent.phone_no}}</strong>
+                        </td>
+                        <td style="text-align:center;">
+                          <strong class="card-description" style="font-size:20px;">00000000</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              </div>
+                 <div class="col-lg-4 grid-margin stretch-card">
+                     <div class="card">
+                <div class="card-body shadow">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                    <h4 class="card-title text-danger">Se connecter</h4>
+                    <hr class="line">
+                    <p class="text-danger">
+                        Se connecter en tant que parent de  <span class="card-description">{{student.first_name}} {{student.last_name}}</span>
+                        et payer sa pension scholaire
+                  </p>
+                        <div class="hidden">
+                    <input type="text" name="phone_no" value="{{student.parent.phone_no}}">
+                    <input type="text" name="password" value="00000000">
+                        </div>
+                    <hr class="line">
+                    <button type="submit" class="btn btn-gradient-danger">Connextion</button>
+                    </form>
+                 </div>
+                     </div>
+                 </div>
+            </div>
+
+{% endblock %}

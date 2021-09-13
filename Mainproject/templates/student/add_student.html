@@ -1,0 +1,227 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "info" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+                 <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <form class="forms-sample" method="post">
+                        {% csrf_token %}
+
+                        <div class="row">
+                        <div class="col-md-6">
+                            <h3><img src="{% static 'Mainapp/images/student.png' %}" class="heading-icon">Inscription des d'eleves </h3>
+                        </div>
+                            <div class="col-md-6">
+                            <strong style="margin-left:170px;" class="text-dark">Annee academique</strong>
+                            <select class="form-control text-dark" name="year" style="width:100px;font-weight:500;margin-left:330px;margin-top:-30px;" >
+                                <option>2021/2022</option>
+                                 <option>2022/2023</option>
+                                 <option>2023/2024</option>
+                                 <option>2024/2025</option>
+                                 <option>2025/2026</option>
+                            </select>
+                        </div>
+                    </div>
+
+                     <hr class="line">
+                        <div class="row">
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Noms</label>
+                        <input type="text" name="first_name" required="True" class="form-control" placeholder="Comme sur l'acte de naissance">
+                    </div>
+                        </div>
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Prenoms</label>
+                      <input type="text" name="last_name" required="True" class="form-control" placeholder="prenoms">
+                    </div>
+                        </div>
+                            <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Classe</label>
+                    <select class="form-control text-dark" name="classroom_name" style="color:black;text-align:center;font-weight:700;">
+                        {% for class in classes %}
+                        <option>{{class.name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Genre</label>
+                       {{ form.gender | add_class:"form-control" }}
+                        {{ form.gender.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Date de naissance</label>
+                       <input type="date"required="True" name="date_of_birth" class="form-control">
+                    </div>
+                        </div>
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Lieu de naissance</label>
+                       {{ form.place_of_birth | add_class:"form-control" }}
+                        {{ form.place_of_birth.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+
+                      <div class="row">
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Nationalite</label>
+                       {{ form.nationality | add_class:"form-control form-control-lg" }}
+                        {{ form.nationality.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Religion</label>
+                       {{ form.religion | add_class:"form-control form-control-lg" }}
+                        {{ form.religion.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                          <div class="col-sm-4" style="margin-top:-8px;">
+                    <label>Photo</label>
+                            <div class="form-group" style="border:1px solid #ebedf2;text-align:center;padding:4px;">
+                       {{ form.photo  }}
+                        {{ form.photo.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+
+                        <div class="row">
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Status</label>
+                       {{ form.status | add_class:"form-control form-control-lg" }}
+                        {{ form.status.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                             <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Matricule du ministere</label>
+                       {{ form.matricule | add_class:"form-control form-control-lg" }}
+                        {{ form.matricule.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                            <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Ecole d'origin</label>
+                       {{ form.school_of_origin | add_class:"form-control form-control-lg" }}
+                        {{ form.school_of_origin.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+
+                        <div class="row">
+                        <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Departement</label>
+                       {{ form.department | add_class:"form-control form-control-lg" }}
+                        {{ form.department.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                             <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Arrondissement</label>
+                       {{ form.locality | add_class:"form-control form-control-lg" }}
+                        {{ form.locality.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                    </div>
+
+                     <hr>
+                        <h4><strong class="text-dark"><img src="{% static 'Mainapp/images/cap.png' %}" class="heading-icon">INFORMATION SUR LE TUTEUR</strong></h4>
+                     <hr>
+                     <div class="row">
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label class="text-dark">Nom du Tuteur a Bafia</label>
+                      <input type="text" name="parent_name" class="form-control" placeholder="noms et prenoms complet">
+                    </div>
+                        </div>
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="text-dark">Numero de telephone du Tuteur</label>
+                       {{ form.phone_no | add_class:"form-control form-control-lg" }}
+                        {{ form.phone_no.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                               <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="text-dark">Address du Tuteur/Tutor's address</label>
+                      <input type="text" name="parent_address" class="form-control" placeholder="address">
+                    </div>
+                        </div>
+                    </div>
+                        <div class="row">
+
+                         <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="text-dark">Noms du pere/ Names of father</label>
+                       {{ form.father_name | add_class:"form-control form-control-lg" }}
+                        {{ form.father_name.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                               <div class="col-sm-4">
+                    <div class="form-group">
+                      <label  class="text-dark">Noms de la mere/ Names of mother </label>
+                     {{ form.mother_name | add_class:"form-control form-control-lg" }}
+                        {{ form.mother_name.errors | add_error_class:"form-errors"}}
+                    </div>
+                        </div>
+                        </div>
+                        <hr>
+                        <h4><strong class="text-dark"><img src="{% static 'Mainapp/images/cap.png' %}" class="heading-icon">REMARQUES SUR L'ELEVE</strong></h4>
+                     <hr>
+                        <div class="form-group">
+                      <label class="text-dark">Remarques</label>
+                            <textarea name="remark" rows="5" cols="25" class="form-control" style="width:400px;">
+                            </textarea>
+                    </div>
+                <hr class="line">
+                     <div style="text-align:center;">
+                    <button type="submit" class="btn btn-gradient-primary mr-2" style="max-width:500px;">Inscrire</button>
+                     </div>
+                  </form>
+                </div>
+              </div>
+                 </div>
+
+{% endblock %}

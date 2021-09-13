@@ -1,0 +1,194 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body shadow">
+            <form method="get" action="{% url 'modify student done' %}">
+                <div style="margin-top:-20px;">
+                    <h4 class="card-title">
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile" class="user-image">
+                        <div class="user-name" style="border:none;">{{student.first_name}} {{student.last_name}}</div>
+                        <hr class="line" style="margin-top:50px;">
+                        <h4 class="text-info"><img src="{% static 'Mainapp/images/textbook.png' %}" style="margin-top:-10px;" class="heading-icon">Information personel</h4>
+                        <hr class="line">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Noms</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.first_name}}" name="first_name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Prenoms</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.last_name}}" name="last_name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Classe</label>
+                                <div class="form-group">
+                                    <select name="classroom_name">
+                                        {% for class in classrooms %}
+                                            {% if class.name == classroom.name %}
+                                        <option selected="selected">{{classroom.name}}</option>
+                                        {% endif %}
+                                        <option>{{class.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Numero de telephone</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.phone_no}}" name="phone_no">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Address</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.address}}" name="address">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Religion</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.religion}}" name="religion">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Nationalite</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.nationality}}" name="nationality">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Date de naissance</label>
+                                <div class="form-group">
+                                    <input type="date" value="{{student.date_of_birth}}" name="date_of_birth" style="width:250px;padding:7px;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Lieu de naissance</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.place_of_birth}}" name="place_of_birth">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>genre</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.gender}}" name="gender">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Ecole d'origine</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.school_of_origin}}" name="school_of_origin" style="width:250px;padding:7px;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Matricule</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.matricule}}" name="matricule">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Departement</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.department}}" name="department">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Arrondissement</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.locality}}" name="locality" style="width:250px;padding:7px;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Status</label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.status}}" name="status">
+                                </div>
+                            </div>
+                        </div>
+                            <hr class="line">
+                        <label>Liste des matieres de {{student.first_name}} {{student.last_name}}</label>
+                        <div class="row">
+                        {% for course in courses %}
+                            <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="form-check form-check-flat form-check-danger">
+                                    {% if course in student.course.all %}
+                                    <label class="form-check-label">
+                                        <input type="checkbox"  checked="checked" class="form-check-input" value="{{course.id}}" name="course_id">
+                                        {{course.name}}
+                                    </label>
+
+                                    {% else %}
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="{{course.id}}" name="course_id">
+                                        {{course.name}}
+                                    </label>
+                                     {% endif %}
+
+                                </div> </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                        <hr class="line">
+                        <h4 class="text-info"><img src="{% static 'Mainapp/images/cap.png' %}" style="margin-top:-10px;" class="heading-icon">Information sur le parent</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label><strong>Parent</strong></label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.parent.first_name}}" name="parent_first_name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label><strong>Adresse du parent</strong></label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.parent.address}}" name="parent_address">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label><strong>Telephone du Parent</strong></label>
+                                <div class="form-group">
+                                    <input type="text" value="{{student.parent.phone_no}}" name="parent_phone_no">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input type="text" name="student_id" class="hidden" value="{{student.id}}">
+
+                        <hr class="line">
+                        <div style="text-align:center;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-gradient-success mr-2" style="width:400px;">Sauvegarder</button>
+                                </div>
+            </form>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-gradient-danger mr-2" style="width:400px;" >Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+{% endblock %}
