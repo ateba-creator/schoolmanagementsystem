@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+            </div>
+                      <button type="submit" class="btn btn-gradient-danger" style="margin-top:30px;margin-left:100px;">Payer le pension</button>
+          </div>
+                {% endif %}
+{% endfor %}
+
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/student.png' %}" class="heading-icon">Information sur <span class="text-primary">{{student.first_name}} {{student.last_name}}</span></h3>
+                  <hr class="line">
+                     <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center;">Noms</th>
+                        <th style="text-align:center;">Prenoms</th>
+                          <th style="text-align:center;">Classe</th>
+                        <th style="text-align:center;">Performance</th>
+                        <th style="text-align:center;">Status de la pension</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td style="text-align:center;"><strong>{{student.first_name}}</strong></td>
+                          <td style="text-align:center;"><strong>{{student.last_name}}</strong></td>
+                          <td style="text-align:center;">{{classroom.name}}</td>
+                           <td style="text-align:center;" class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
+                          {% for year in student.fee.all %}
+                          {% if year.paid_fee == False %}
+                          <td style="text-align:center;"><label class="badge badge-danger">Non paye</label></td>
+                          {% else %}
+                          <td style="text-align:center;"><label class="badge badge-success">paye</label></td>
+                          {% endif %}
+                      {% endfor %}
+                      </tr>
+                    </tbody>
+                     </table>
+                    <hr class="line">
+                     <h3><img src="{% static 'Mainapp/images/reading.png' %}" class="heading-icon">Information personel</h3>
+                            <hr class="line">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                   <th style="text-align:center;">Date de naissance</th>
+                                     <th style="text-align:center;">Lieu de naissance</th>
+                                     <th style="text-align:center;">Genre</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="text-align:center;">{{student.date_of_birth}}</td>
+                                    <td style="text-align:center;">{{student.place_of_birth}}</td>
+                                    <td style="text-align:center;">{{student.gender}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+ <hr class="line">
+                       <table class="table table-bordered">
+                           <h3><img src="{% static 'Mainapp/images/graduate.png' %}" class="heading-icon">Matieres de <span class="text-primary">{{student.first_name}} {{student.last_name}}</span></h3>
+                   <hr class="line">
+                    <thead>
+                      <tr>
+                          <th></th>
+                        <th style="text-align:center;">Matieres</th>
+                        <th style="text-align:center;">Enseignant</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       {% for course in student.course.all %}
+                       <tr>
+                           <td style="text-align:center;"><strong>{{forloop.counter}}</strong></td>
+                        <td style="text-align:center;">
+                            <strong class="text-primary">{{course.name}}</strong>
+                        </td>
+                       {% if course.teacher.gender == 'masculin' %}
+                           <td style="text-align:center;"><strong>Mr. {{course.teacher.first_name}}</strong></td>
+                      {% else %}
+                           <td style="text-align:center;">Mme. {{course.teacher.first_name}}</td>
+                           {% endif %}
+                       </tr>
+                       {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+</div>
+
+{% endblock %}

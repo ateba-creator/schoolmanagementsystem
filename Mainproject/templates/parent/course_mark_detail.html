@@ -1,0 +1,133 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for group in user.groups.all %}
+    {% if group.name == 'parent' %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+            </div>
+                      <button type="submit" class="btn btn-gradient-danger" style="margin-top:30px;margin-left:100px;">Payer le pension</button>
+          </div>
+                {% endif %}
+{% endfor %}
+
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">information sur <span class="text-primary">{{student.first_name}} {{student.last_name}}</span></h4>
+                  <hr class="line">
+                    <p class="card-description">
+                    Pour plus de details clickez sur details<code>Details</code>
+                  </p>
+
+                     <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Noms</th>
+                        <th>Prenoms</th>
+                          <th>Classe</th>
+                        <th>Performance</th>
+                        <th>Status de la pension</th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{student.first_name}}</td>
+                        <td>{{student.last_name}}</td>
+                          <td>{{classroom.name}}</td>
+                           <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
+                          {% for year in student.fee.all %}
+                          {% if year.paid_fee == False %}
+                          <td><label class="badge badge-danger">Non paye</label></td>
+                          {% else %}
+                          <td><label class="badge badge-success">paye</label></td>
+                          {% endif %}
+                      {% endfor %}
+                      </tr>
+                    </tbody>
+                     </table>
+
+                    <hr class="line">
+                       <table class="table table-striped">
+                           <h4><strong class="text-primary">{{course.name}}</strong></h4>
+                    <thead>
+                    <hr class="line">
+                      <tr>
+                        <th>Sequence</th>
+                        <th>Notes</th>
+                          <th>Performance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for mark in course.mark.all %}
+                        <tr>
+                        <td  style="width:200px;">
+                            {% if mark.sequence_number == 1 %}
+                            <strong class="text-primary">Premiere Sequence</strong>
+                            {% endif %}
+                            {% if mark.sequence_number == 2 %}
+                            <strong class="text-primary">Deuxieme Sequence</strong>
+                            {% endif %}
+                            {% if mark.sequence_number == 3 %}
+                            <strong class="text-primary">Troisieme Sequence</strong>
+                            {% endif %}
+                            {% if mark.sequence_number == 4 %}
+                            <strong class="text-primary">Quatrieme Sequence</strong>
+                            {% endif %}
+                            {% if mark.sequence_number == 5 %}
+                            <strong class="text-primary">Cinquieme Sequence</strong>
+                            {% endif %}
+                            {% if mark.sequence_number == 6 %}
+                            <strong class="text-primary">Sixieme Sequence</strong>
+                            {% endif %}
+
+                        </td>
+                            <td>
+                                {% if mark.mark < 10 %}
+                                <strong class="text-danger">{{mark.mark}}</strong>
+                                {% endif %}
+
+                                {% if mark.mark >= 10 %}
+                                <strong class="text-success">{{mark.mark}}</strong>
+                                {% endif %}
+                            </td>
+                                 <td class="text-success"> 2.76% <i class="mdi mdi-arrow-up"></i></td>
+                      </tr>
+                        {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+</div>
+
+{% endif %}
+{% endfor %}
+{% endblock %}

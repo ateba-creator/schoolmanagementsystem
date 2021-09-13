@@ -1,0 +1,108 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+            </div>
+                      <button type="submit" class="btn btn-gradient-danger" style="margin-top:30px;margin-left:100px;">Payer le pension</button>
+          </div>
+                {% endif %}
+{% endfor %}
+
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div style="padding-bottom:15px;">
+                    <h3><img src="{% static 'Mainapp/images/draw.png' %}" class="heading-icon">Notes de <span class="text-primary">{{student.first_name}} {{student.last_name}}</span></h3>
+                    </div>
+                    <hr class="line">
+                        <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                          <th style="text-align:center;">Annee academique</th>
+                          <th style="text-align:center;">Sequence</th>
+                        <th style="text-align:center;">Matieres</th>
+                          <th style="text-align:center;">coefficient</th>
+                          <th style="text-align:center;">Note / 20</th>
+                           <th style="text-align:center;">Mention</th>
+                          <th style="text-align:center;">Enseignant</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td style="text-align:center;">(<span class="text-danger">{{result.academic_year}}</span>)</td>
+                            <td style="text-align:center;">{{result.sequence}}</td>
+                        <td style="width:200px;text-align:center;">
+                            <strong>{{result.course.name}}</strong>
+                        </td>
+                            <td style="text-align:center;">
+                            <strong>{{result.course.coeff}}</strong>
+                        </td>
+                            {% if result.mark < 10 %}
+                             <td class="text-danger" style="text-align:center;">
+                            <strong>{{result.mark}}</strong>
+                        </td>
+                            {% else %}
+                             <td class="text-success" style="text-align:center;">
+                            <strong>{{result.mark}}</strong>
+                        </td>
+                            {% endif %}
+                            <td style="text-align:center;">
+                                {% if result.mark >= 16 and result.mark < 20 %}
+                            <strong style="color:green">Très Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 13 and result.mark < 16 %}
+                            <strong class="text-success">Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 9 and result.mark <= 12 %}
+                            <strong class="text-warning">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark >= 6 and result.mark <= 8 %}
+                            <strong class="text-danger">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark >= 0 and result.mark <= 5 %}
+                            <strong style="color:red;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% if result.mark == 0 %}
+                            <strong style="text-align:center;">NULL</strong>
+                                {% endif %}
+                          </td>
+                            {% if result.course.teacher.gender == 'masculin' %}
+                        <td style="text-align:center;">Mr. {{result.course.teacher.first_name}}</td>
+                            {% else %}
+                            <td style="text-align:center;">Mme. {{result.course.teacher.first_name}}</td>
+                            {% endif %}
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+</div>
+
+{% endblock %}

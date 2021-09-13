@@ -1,0 +1,96 @@
+                    {% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+
+    {% for student in students %}
+                    {% if student.report_card == None %}
+                    <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">Bulletins non disponible pour l'instant</div>
+            </div>
+          </div>
+                    {% endif %}
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2">
+                           <i class="mdi mdi-alert-outline" style="font-size:50px;color:red;"></i>
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;border-left:2px solid #fe7c96;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+
+            </div>
+    <button type="submit" class="btn btn-gradient-danger" style="margin-top:30px;margin-left:100px;">Payer le pension</button>
+                  </div>
+                    <hr class="line">
+                {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div style="padding-bottom:20px;">
+                    <strong>
+
+                        <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Bulletins de {{student.first_name}} {{student.last_name}}</h3>
+
+                    </strong>
+                    </div>
+                    <hr class="line">
+                    {% if student.report_card %}
+                        <table class="table table-bordered">
+
+                              <th style="text-align:center;">Annee academique</th>
+                              <th style="text-align:center;">Sequence</th>
+                              <th></th>
+                      <tbody>
+                      {% for report_card in student.report_card.all %}
+                      <tr>
+                          <form action="{% url 'student report card' %}" method="get">
+                          <td style="text-align:center;">
+                              <strong>{{report_card.academic_year}}</strong>
+                          </td>
+                          <td style="text-align:center;">
+                              <strong>{{report_card.sequence}}</strong>
+                          </td>
+                              <td class="hidden">
+                                  <input type="text" name="student_id" value="{{student.id}}">
+                                   <input type="text" name="academic_year" value="{{report_card.academic_year}}">
+                                   <input type="text" name="sequence" value="{{report_card.sequence}}">
+                              </td>
+                          <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-primary">Ouvrir</button>
+                          </td>
+                          </form>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+                    {% else %}
+                    <div class="alert alert-danger">Bulletins non-disponible !</div>
+                    {% endif %}
+
+              </div>
+                    </div>
+                    </div>
+
+{% endblock %}

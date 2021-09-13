@@ -1,0 +1,98 @@
+                    {% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% endfor %}
+
+
+    {% for student in students %}
+                    {% if student.report_card == None %}
+                    <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">Bulletins non disponible pour l'instant</div>
+            </div>
+          </div>
+                    {% endif %}
+{% for year in student.fee.all %}
+            {% if year.paid_fee == False %}
+                  <div class="row alert alert-danger" style="width:1020px;margin-left:0px;">
+                      <div class="col-md-2" style="margin-top:20px;">
+                          <img src="{% static 'Mainapp/images/prohibition.png' %}" class="heading-icon">
+                      </div>
+            <div class="col-md-10" style="margin-left:-70px;margin-top:30px;">
+                <strong>{{student.first_name}} {{student.last_name}} n'a pas encore paye la pension de l'annee academique {{year.year}}</strong>
+            <hr class="line">
+                {% for date in dates %}
+                {% if date.name == 'pay fee' %}
+                <strong class="text-danger" style="text-align:center;">La date limite de paiement des pensions est le {{date.date}}</strong>
+                {% endif %}
+            {% endfor %}
+
+            </div>
+    <button type="submit" class="btn btn-gradient-danger" style="margin-top:-10px;margin-left:400px;">Payer le pension</button>
+                  </div>
+                    <hr class="line">
+                {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div style="padding-bottom:20px;">
+                    <strong>
+
+                        <h3><img src="{% static 'Mainapp/images/clipboard.png' %}" class="heading-icon">Clickez sur bulletin pour proceder !</h3>
+
+                    </strong>
+                    </div>
+                        <table class="table table-bordered">
+                            <hr class="line">
+                      <th>
+                          <tr>
+                              <th style="text-align:center;">Noms et Prenoms</th>
+                              <th style="text-align:center;">Genre</th>
+                              <th style="text-align:center;">Date de naissance</th>
+                              <th style="text-align:center;">Lieu de naissance</th>
+                              <th></th>
+                          </tr>
+                      </th>
+                      <tbody>
+                      {% for student in students %}
+                      <tr>
+                          <form action="{% url 'report card home' %}" method="get">
+                          <td style="text-align:center;">
+                            {{student.first_name}} {{student.last_name}}
+                          </td>
+                          <td style="text-align:center;">
+                            {{student.gender}}
+                          </td>
+                          <td style="text-align:center;">
+                            {{student.date_of_birth}}
+                          </td>
+                          <td style="text-align:center;">
+                            {{student.place_of_birth}}
+                          </td>
+                              <td class="hidden"><input type="text" name="student_id" value="{{student.id}}"></td>
+                          <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-primary">Bulletin</button>
+                          </td>
+                          </form>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+                    </div>
+                    </div>
+
+{% endblock %}

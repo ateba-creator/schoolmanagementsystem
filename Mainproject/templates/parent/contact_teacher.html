@@ -1,0 +1,54 @@
+                    {% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div style="padding-bottom:20px;">
+                    <strong>
+                        <img src="{% static 'Mainapp/images/clipboard.png' %}" class="download-image">
+                        <h4 style="text-align:center;margin-top:-37px;" class="text-info">LISTE DES ENSEIGNANT PRENANT EN CHARGE VOTRE/VOS ENFANTS </h4>
+                    </strong>
+                    </div>
+                        <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th style="text-align:center;">Noms et Prenoms</th>
+                              <th style="text-align:center;">Genre</th>
+                              <th style="text-align:center;">Classe</th>
+                              <th style="text-align:center;">Matiere</th>
+                              <th style="text-align:center;">Contact</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      {% for course in courses %}
+                      <tr>
+                          {% if course.teacher.gender == 'masculin' %}
+                          <td style="text-align:center;">Mr. {{course.teacher.first_name}}</td>
+                          {% else %}
+                          <td style="text-align:center;">Mme. {{course.teacher.first_name}}</td>
+                          {% endif %}
+                          <td style="text-align:center;">
+                            {{course.teacher.gender}}
+                          </td>
+                          <td style="text-align:center;">
+                          {{course.classroom}}
+                          </td>
+                          <td style="text-align:center;">
+                            {{course.name}}
+                          </td>
+                          <td style="text-align:center;">
+                            {{course.teacher.phone_no}}
+                          </td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+                    </div>
+                    </div>
+
+{% endblock %}
