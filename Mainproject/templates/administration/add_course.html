@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+ {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+ <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div class="row">
+                        <div class="col-md-12">
+                  <h3><img src="{% static 'Mainapp/images/books.png' %}" class="heading-icon">Ajouter une matiere</h3>
+                        </div>
+                    </div>
+                    <hr class="line">
+                    <form class="forms-sample" method="post">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Departement</label>
+                         <select class="form-control" name="department">
+                            {% for dep in departments %}
+                            <option>{{dep.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                        </div>
+                       <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom de la classe</label>
+                       {{ form.classroom | add_class:"form-control" }}
+                        {{ form.classroom.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+
+                        <div class="row">
+                             <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom de la matiere</label>
+                       {{ form.name | add_class:"form-control" }}
+                        {{ form.name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                            <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Coefficient</label>
+                       {{ form.coeff | add_class:"form-control-special" }}
+                        {{ form.coeff.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                        </div>
+                        <hr class="line">
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Ajouter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+{% endblock %}

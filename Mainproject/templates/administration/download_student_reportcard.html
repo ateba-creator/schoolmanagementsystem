@@ -1,0 +1,1059 @@
+<style xmlns="http://www.w3.org/1999/html">
+     body {
+                font-weight: 200;
+                font-size: 12px;
+                border-left-color:red;
+                font-family: Courier New;
+                height:auto;
+
+            }
+            ul{
+                list-style-type:none;
+            }
+
+.box{
+    position:absolute;
+    opacity:0.1;
+    left:100px;
+    top:27%;
+}
+
+.image-heading{
+    height:auto;
+    width:145px;
+    zoom:100%;
+    text-align:center;
+}
+#viewerContainer{
+    height:auto;
+}
+            .header {
+                font-size: 20px;
+                font-weight: 200;
+                text-align: center;
+                color: black;
+                text-decoration:underline;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            .header{
+            margin-top:0px;
+            }
+@page{
+    size: a4 portrait;
+    margin-top:30%
+    background-image:url('static/Mainapp/images/ministry.jpg');
+    @framecontent_frame {
+        left: 10pt;
+        width: 575pt;
+        top: 10pt;
+        -pdf-frame-border: 1;    /*fordebugging the layout*/
+        }
+    }
+
+    </style>
+<body>
+    <div>
+
+              <div>
+                <div style="position:relative;">
+<div class="box">
+                    </div>
+                    <div class="overlay">
+                    <table>
+                        <thead>
+                        <tr style="text-align:center;padding:5px;">
+                            <td style="text-align:left;">
+                                <strong>REPUBLIQUE DU CAMEROUN</strong>
+                                <div>PAIX - TRAVAIL - PATRIE</div>
+                            </td>
+
+                            <td><img src="static/Mainapp/images/ministry.jpg" class="image-heading"></td>
+                            <td style="text-align:right;">
+                                <strong>REPUBLIC OF CAMEROON</strong>
+                                <div>PEACE - WORK - FATHERLAND</div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% if report_card.sequence != '2 eme Sequence' and report_card.sequence != '4 eme Sequence' and report_card.sequence != '6 eme Sequence' %}
+                            <h2 style="text-align:center;">***** BULLETIN DE NOTES DE LA <strong>{{report_card.sequence}} - {{report_card.academic_year}} </strong>*****</h2>
+                            <hr class="line">
+                            {% if report_card.sequence == '1 ere Sequence' %}
+                            <h3 style="text-align:center;"><i>***** 1 st Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+                            {% if report_card.sequence == '2 eme Sequence' %}
+                            <h3 style="text-align:center;"><i>***** 2 nd Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+                            {% if report_card.sequence == '3 eme Sequence' %}
+                            <h3 style="text-align:center;"><i>***** 3 rd Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+                            {% if report_card.sequence == '4 eme Sequence' %}
+                            <h3 style="text-align:center;"><i>***** 4 th Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+                            {% if report_card.sequence == '5 eme Sequence' %}
+                            <h3 style="text-align:center;"><i>*****  5 th Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+                            {% if report_card.sequence == '6 eme Sequence' %}
+                            <h3 style="text-align:center;"><i>***** 6 th Sequence report card - {{report_card.academic_year}} *****</i></h3>
+                            {% endif %}
+
+                    {% else %}
+                           {% if report_card.sequence == '2 eme Sequence' %}
+                                <h2 style="text-align:center;">***** BULLETIN DE NOTES DU <strong> TRIMESTRE 1 - {{report_card.academic_year}} </strong>*****</h2>
+                         <h3 style="text-align:center;"><i>***** 1 st SEMESTER REPORT CARD - {{report_card.academic_year}} *****</i></h3>
+                        {% endif %}
+                            {% if report_card.sequence == '4 eme Sequence' %}
+                            <h3 style="text-align:center;">***** BULLETIN DE NOTES DU <strong> TRIMESTRE 2 - {{report_card.academic_year}} </strong>*****</h3>
+                             <h3 style="text-align:center;"><i>***** 2 nd SEMESTER REPORT CARD - {{report_card.academic_year}} *****</i></h3>
+                        {% endif %}
+
+                            {% if report_card.sequence == '6 eme Sequence' %}
+                            <h3 style="text-align:center;">***** BULLETIN DE NOTES DU <strong> TRIMESTRE 3 - {{report_card.academic_year}} </strong>*****</h3>
+                         <h3 style="text-align:center;"><i>***** 3 rd SEMESTER REPORT CARD - {{report_card.academic_year}} *****</i></h3>
+                        {% endif %}
+                    {% endif %}
+                 <hr class="line">
+                   <div>
+                        <table class="table">
+                            <thead>
+                            <tr style="background-color:#f2f2f2">
+                                <th style="border:1px solid grey;line-height:16%;padding:4px;"><strong><i>NOMS ET PRENOMS : </i></strong></th>
+                                 <th style="border:1px solid grey;text-align:center;line-height:16%;" colspan="2"><strong>{{student.first_name}} {{student.last_name}}</strong></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="background-color:#f2f2f2;">
+                                <th style="border:1px solid grey;line-height:16%;padding:4px;"><strong>DATE DE NAISSANCE : {{student.date_of_birth}}</strong></th>
+                                <th style="border:1px solid grey;line-height:16%;"><strong>LIEU DE NAISSANCE : {{student.place_of_birth}}</strong></th>
+                                <th style="border:1px solid grey;line-height:16%;"><strong>ANNEE SCHOLAIRE : {{report_card.academic_year}}</strong></th>
+                            </tr>
+                            <tr style="background-color:#f2f2f2">
+                                <th style="border:1px solid grey;line-height:16%;padding:4px;"><strong>CLASSE :{{classroom.name}}</strong></th>
+                                <th style="border:1px solid grey;line-height:16%;"><strong><i>MATRICULE : {{student.matricule}}</strong></th>
+                                <th style="border:1px solid grey;line-height:16%;"><strong>STATUS : </strong>{{student.status}}</th>
+                            </tr>
+                            <tr style="background-color:#f2f2f2">
+                                <th style="border:1px solid grey;line-height:16%;padding:4px;"><strong>EFFECTIF CLASSE:{{classroom.students.all.count}}</strong></th>
+                                <th style="border:1px solid grey;line-height:16%;"><strong>SEXE : {{student.gender}}</strong></th>
+                            {% if classroom.main_teacher.gender == 'masculin' %}
+                                <th style="border:1px solid grey;line-height:16%;"><strong>PROF PRINCIPAL :Mr. {{classroom.main_teacher.first_name}}</strong></th>
+                             {% else %}
+                                  <th style="border:1px solid grey;line-height:16%;"><strong>PROF PRINCIPAL :Mme. {{classroom.main_teacher.first_name}}</strong></th>
+                                {% endif %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr class="line">
+                    {% if report_card.sequence != '2 eme Sequence' and report_card.sequence != '4 eme Sequence' and report_card.sequence != '6 eme Sequence' %}
+                  <table>
+                   <thead style="border:1px solid grey;">
+                      <tr>
+                          <th style="border:1px solid grey;text-align:center;background-color:#f2f2f2;line-height:16%;" colspan="1">
+                              <strong>MATIERES</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;line-height:16%;background-color:#f2f2f2" colspan="1">
+                              <strong>NOTE <span class="text-danger">/</span> 20</strong>
+                          </th>
+                         <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="1">
+                              <strong>COEF.</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="1">
+                              <strong>N x C</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="1">
+                              <strong>RANG</strong></th>
+                          <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="1">
+                              <strong>MENTION</strong>
+                          </th>
+
+                          <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="3">
+                              <strong>CLASSE</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;line-height:16%;text-align:center;padding:3px;background-color:#f2f2f2" colspan="1">
+                              <strong>VISA</strong>
+                          </th>
+                      </tr>
+                    <tr>
+                        <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Subjects</i></td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Mark</i></td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Coef.</i></td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>M x C</i></td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Rank</i></td>
+                        <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Remarks</i></td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;">MIN</td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;">MOY</td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;">MAX</td>
+                         <td style="border:1px solid grey;line-height:16%;text-align:center;padding:3px;"><i>Signature</i></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in report_card.results.all %}
+                    <tr style="border:1px solid grey;text-align:center;padding:1px;">
+
+                        <td style="border:1px solid grey;text-align:center;padding:0px;line-height:16%;width:100px;">
+                            <h6><strong style="font-size:12px;">{{result.course.name}} </strong></h6>
+                        </td>
+
+                        {% if result.mark < 10 %}
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:red;"><strong style="font-size:12px;">{{result.mark}}</strong></h6></td>
+                        {% else %}
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:green;"><strong style="font-size:12px;">{{result.mark}}</strong></h6></td>
+                        {% endif %}
+                    <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.course.coeff}}</strong></h6></td>
+
+                        <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.total}}</strong></h6></td>
+                         <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.rank}}</strong></h6></td>
+
+                        <td style="border:1px solid grey;text-align:center;line-height:16%">
+                            {% if result.mark %}
+                            {% if result.mark >= 16 and result.mark < 20 %}
+                            <strong style="color:green;font-size:12px;">Très Bien</strong>
+                                {% endif %}
+                            {% if result.mark == 20 %}
+                            <strong style="color:green;font-size:12px;">Excellent</strong>
+                                {% endif %}
+                                {% if result.mark >= 13 and result.mark < 16 %}
+                            <strong style="font-size:12px;color:green">Bien</strong>
+                                {% endif %}
+                                {% if result.mark >= 9 and result.mark <= 12 %}
+                            <strong style="font-size:12px;color:yellow;">Moyen</strong>
+                                {% endif %}
+                                {% if result.mark >= 6 and result.mark <= 8 %}
+                            <strong class="text-danger" style="font-size:12px;">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.mark >= 0 and result.mark <= 5 %}
+                            <strong style="color:red;font-size:12px;">Tres Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong style="text-align:center;font-size:12px;color:red;">NULL</strong>
+                            {% endif %}
+                        </td>
+                        <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.min}}</strong></h6></td>
+                        <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.avg}}</strong></h6></td>
+                        <td style="border:1px solid grey;text-align:center;"><h6><strong style="font-size:12px;">{{result.max}}</strong></h6></td>
+                        <td style="border:1px solid grey;text-align:center;font-size:12px;">
+                            {% if result.course.teacher.gender == 'masculin' %}
+                            <i style="font-size:10px;">Mr. {{result.course.teacher.first_name}}</i>
+                        {% else %}
+                            <i style="font-size:10px;">Mme. {{result.course.teacher.first_name}}</i>
+                            {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                     <hr class="line">
+                    <table class="table table-bordered" style="width:100%;">
+                        <thead>
+                        <tr style="border:1px solid grey;">
+                            {% if report_card.average >= reussite.average %}
+                            <th colspan="7" style="background-color:#1bcfb4;text-align:center;line-height:16%;padding:5px;"><strong>STATUS : REUSSIE</strong></th>
+                            <th style="text-align:center;line-height:16%;padding:5px;"><img src="static/Mainapp/images/check.png" style="width:25px;height:25px;"></th>
+                            {% else %}
+                            <th colspan="7" style="background-color:#fe7096;text-align:center;border:1px solid grey;line-height:16%;padding:5px;"><strong>STATUS : ECHEC</strong> </th>
+                            <th style="text-align:center;line-height:16%;padding:5px;"><img src="static/Mainapp/images/rejected.png" style="width:20px;height:20px;"></th>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                         <th style="border:1px solid grey;text-align:center;padding:3px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>RAPPEL EVALS.</li></strong>
+                              <li><i>Remind evals.</i></li>
+                          </ul></th>
+                             <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none" style="padding:0px;">
+                              {% if report_card.sequence == '1 ere Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL 1 ere Seq.</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 1</i></li>
+                                  {% endif %}
+                                  {% if report_card.sequence == '3 eme Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL 3 eme Seq.</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 3</i></li>
+                                  {% endif %}
+                                  {% if report_card.sequence == '4 eme Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL 4 eme Seq.</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 5</i></li>
+                                  {% endif %}
+
+                          </ul></th>
+                       <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>CONDUITE</li></strong>
+                              <li><i>Discipline term 1</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>CONSEIL DE CLASSE</li></strong>
+                              <li><i>Class Council</i></li>
+                          </ul></th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr style="padding:2px;">
+                            <td style="border:1px solid grey;line-height:16%">
+                                MOY. SEQ 1
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                                {% if report_card.sequence == '1 ere Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;width:100px;">
+                                 TOTAL POINTS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                                <strong style="font-size:15px;">{{greate_total}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%; width:150px;">
+                                  ABS.TOTAL(Heures)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                 <strong style="font-size:15px;">{{remark.hours_no}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;width:130px;">
+                                AVERT.CONDUITE
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                            {% if remark.hours_no >= avert_conduite.hours and remark.hours_no <= avert_conduite.hours2 %}
+                                     <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="padding:2px;">
+                            <td style="border:1px solid grey;line-height:16%">
+                                MOY. SEQ 2
+                            </td>
+                            <td style="border:1px solid grey;">
+
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                 TOTAL COEFS
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{coeff_total}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  ABS.NON.JUST.(Heures)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{remark.hours_no}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                BLAME.CONDUITE
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                               {% if remark.hours_no >= blame_conduite.hours %}
+                                      <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="padding:2px;">
+                            <td style="border:1px solid grey;line-height:16%">
+                                MOY. SEQ 3
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                            {% if report_card.sequence == '3 eme Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                {% if report_card.sequence == '1 ere Sequence' %}
+                                 MOY. SEQ 1
+                                {% endif %}
+                                {% if report_card.sequence == '3 eme Sequence' %}
+                                 MOY. SEQ 3
+                                {% endif %}
+                                {% if report_card.sequence == '5 eme Sequence' %}
+                                 MOY. SEQ 5
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  CONSIGNES(Jours)
+                            </td>
+                            <td style="border:1px solid grey;">
+
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                TAB.D'HONNEUR
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                {% if report_card.average >= table.average and remark.hours_no <= table.hours %}
+                                     <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="padding:2px;">
+                            <td style="border:1px solid grey;line-height:16%">
+                                MOY. SEQ 4
+                            </td>
+                            <td style="border:1px solid grey;">
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                {% if report_card.sequence == '1 ere Sequence' %}
+                                 RANK SEQ 1
+                                {% endif %}
+                                {% if report_card.sequence == '3 eme Sequence' %}
+                                 RANK SEQ 3
+                                {% endif %}
+                                {% if report_card.sequence == '5 eme Sequence' %}
+                                 RANK SEQ 5
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{report_card.rank}}</strong></td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  CONSIGNES(Heures)
+                            </td>
+                            <td style="border:1px solid grey;">
+
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                ENCOURAGEMENTS
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                            {% if report_card.average >= encouragement.average  and remark.hours_no <= encouragement.hours %}
+                                <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr style="padding:2px;">
+                            <td style="border:1px solid grey;line-height:16%">
+                                MOY. SEQ 5
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                             {% if report_card.sequence == '5 eme Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                 N0.MATIERES
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{student.course.all.count}}/{{courses.all.count}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  EX. (Jours)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{remark.jr_exclusions}}</strong></td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                FELICITATIONS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                           {% if report_card.average >= felicitations.average and remark.hours_no <= felicitations.hours %}
+                                      <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">MOY. SEQ 6</td>
+                            <td style="border:1px solid grey;line-height:16%"></td>
+                            <td style="border:1px solid grey;line-height:16%">MOY. CLASSE</td>
+                            <td style="border:1px solid grey;line-height:16%"></td>
+                            <td style="border:1px solid grey;line-height:16%">EX. (heures)</td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{remark.hr_exclusions}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">AVERT.TRAVAIL</td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                {% if report_card.average >= avert_travail.average and report_card.average <= avert_travail.average2 %}
+                                     <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <thead>
+                        <tr>
+                             <th style="border:1px solid grey;text-align:center;line-height:16%;padding:0px;background-color:#f2f2f2" colspan="2">
+                              <ul class="display-none" style="padding:0px;">
+                                  <strong><li style="padding:0px;">MOYENNE DU PREMIER</li></strong>
+                                  <li style="padding:0px;"><i>AVERAGE OF THE FIRST</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;text-align:center;" colspan="1">
+                              <strong><span style="font-size:15px;">{{report_card.first_average}}</span></strong>
+                          </th>
+                       <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%;" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>MOYENNE DE DERNIER </li></strong>
+                              <li><i>AVERAGE OF THE LAST</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;text-align:center;" colspan="1">
+                              <strong><span style="font-size:15px;">{{report_card.last_average}}</span></strong>
+                          </th>
+                            <td style="border:1px solid grey;">BLAME. TRAVAIL :</td>
+                            <td style="border:1px solid grey;text-align:center;">
+                                {% if report_card.average < blame_travail.average %}
+                                     <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                   </thead>
+                       <tbody>
+                           <tr>
+                               <td style="border:1px solid grey;text-align:center;padding:4px;background-color:#f2f2f2" colspan="3"><strong>VISA DU PARENT</strong></td>
+                               <td style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2" colspan="2"><strong>DECISION DU CONSEIL DE CLASSE</strong></td>
+                               <td style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2" colspan="3"><strong>VISA DU CHEF D'ETABLISSEMENT</strong></td>
+                        </tr>
+                       <tr style="height:50px;">
+                           <td style="border:1px solid grey;" colspan="3"></td>
+
+                            {% if report_card.average <= travail_null.average %}
+                           <td style="border:1px solid grey;text-align:center;background-color:#fe7096;line-height:16%;" colspan="2">
+                                TRAVAIL NULL
+                               </td>
+                                {% endif %}
+                                {% if report_card.average >= travail_mauvais.average and report_card.average <= travail_mauvais.average2 %}
+                                 <td style="border:1px solid grey;text-align:center;background-color:#fe7096;line-height:16%;" colspan="2">
+                           TRAVAIL MAUVAIS
+                       </td>
+                                {% endif %}
+
+                                {% if report_card.average >= travail_passable.average and report_card.average <= travail_passable.average2 %}
+                                 <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%;" colspan="2">
+                           TRAVAIL PASSABLE
+                                 </td>
+                                {% endif %}
+
+                           {% if report_card.average >= travail_assez_bien.average and report_card.average <= travail_assez_bien.average2 %}
+                           <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%;" colspan="2">TRAVAIL ASSEZ BIEN</td>
+                                {% endif %}
+
+                                {% if report_card.average >= travail_bien.average and report_card.average <= travail_bien.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%;" colspan="2">
+                                TRAVAIL BIEN
+                            </td>
+                                {% endif %}
+
+                                {% if report_card.average >= travail_tres_bien.average and report_card.average <= travail_tres_bien.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%;" colspan="2">
+                                TRAVAIL TRES BIEN
+                            </td>
+                                {% endif %}
+                                {% if report_card.average >= travail_excellent.average and report_card.average <= travail_excellent.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%;" colspan="2">
+                                TRAVAIL EXCELLENT
+                            </td>
+                                {% endif %}
+
+                           <td style="border:1px solid grey;" colspan="3"></td>
+                        </tr>
+                       <tr>
+
+                        </tr>
+                       <tr style="padding:2px;">
+                            <td style="border:1px solid grey;text-align:center;color:#198ae3;line-height:16%" colspan="8">Les requetes sont recevables une (01) semaine au plus tard apres la remise des bulletins</td>
+                        </tr>
+                           <tr style="padding:2px;">
+                            <td style="border:1px solid grey;text-align:center;color:#198ae3;line-height:16%" colspan="8"><i>Complains are admissible one (01) week latest after report card delivery</i></td>
+                        </tr>
+                       </tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                    {% else %}
+<!-- term report card here -->
+
+<table class="table table-striped" id="new_table2">
+                    <thead style="border:1px solid grey;">
+                      <tr>
+                          <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2" colspan="1">
+                              <strong>MATIERES</strong>
+                              </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>EVAL 1</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>EVAL 2</strong>
+                           </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>NOTE <span class="text-danger">/</span> 20</strong>
+                          </th>
+                         <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>COEF.</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>N x C</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              RANG
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>MENTION</strong>
+                          </th>
+
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="3">
+                              <strong>CLASSE</strong>
+                          </th>
+                          <th style="padding:0px;border:1px solid grey;text-align:center;background-color:#f2f2f2" colspan="1">
+                              <strong>VISA</strong>
+                          </th>
+                      </tr>
+                    <tr>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><i>Subjects</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>50%</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>50%</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>Mark</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>Coef.</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>MxC</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><i>Rank</i></td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><i>Remark</i></td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%">MIN</td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%">MOY</td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%">MAX</td>
+                         <td style="border:1px solid grey;text-align:center;line-height:16%;padding:2px;width:100px;"><i>Signature</i></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in report_card.results.all %}
+                    <tr style="border:1px solid grey;text-align:center;">
+
+                        <td style="border:1px solid grey;text-align:center;padding:4px;line-height:15%;width:100px;">
+                            <li><h6><strong style="font-size:12px;">{{result.course.name}} </strong></h6></li>
+                        </td>
+
+                        {% if result.mark < 10 %}
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:red;"><strong style="font-size:12px;">{{result.mark}}</strong></h6></td>
+                        {% else %}
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:green;"><strong style="font-size:12px;">{{result.mark}}</strong></h6></td>
+                        {% endif %}
+
+                        {% if result.mark2 < 10 %}
+                         <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:red;"><strong style="font-size:12px;">{{result.mark2}}</strong></h6></td>
+                        {% else %}
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:green;"><strong style="font-size:12px;">{{result.mark2}}</strong></h6></td>
+                        {% endif %}
+
+                        {% if result.average_mark < 10 %}
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:red;"><strong style="font-size:12px;">{{result.average_mark}}</strong></h6></td>
+                        {% else %}
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6 style="color:green;"><strong style="font-size:12px;">{{result.average_mark}}</strong></h6></td>
+                        {% endif %}
+                    <td style="border:1px solid grey;text-align:center;line-height:16%"><h6><strong style="font-size:12px;">{{result.course.coeff}}</strong></h6></td>
+
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6><strong style="font-size:12px;">{{result.total2}}</strong></h6></td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><h6><strong style="font-size:12px;">{{result.rank2}}</strong></h6></td>
+                        <td style="border:1px solid grey;text-align:center;width:100px;line-height:16%">
+                            {% if result.average_mark %}
+                            {% if result.average_mark >= 16 and result.mark <= 20 %}
+                            <strong style="color:green;font-size:12px;">Très Bien</strong>
+                                {% endif %}
+                                {% if result.average_mark >= 12 and result.average_mark < 16 %}
+                            <strong style="font-size:12px;color:green">Bien</strong>
+                                {% endif %}
+                                {% if result.average_mark >= 9 and result.average_mark <= 12 %}
+                            <strong style="font-size:12px;">Moyen</strong>
+                                {% endif %}
+                                {% if result.average_mark >= 6 and result.average_mark <= 8 %}
+                            <strong style="font-size:12px;color:red;">Insuffisant</strong>
+                                {% endif %}
+                                {% if result.average_mark >= 0 and result.average_mark <= 5 %}
+                            <strong style="color:red;font-size:12px;">Très Insuffisant</strong>
+                                {% endif %}
+                            {% else %}
+                            <strong style="text-align:center;font-size:12px;">NULL</strong>
+                            {% endif %}
+                        </td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><strong style="font-size:12px;"></strong>{{result.min2}}</td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><strong style="font-size:12px;"></strong>{{result.avg2}}</td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%"><strong style="font-size:12px;"></strong>{{result.max2}}</td>
+                        <td style="border:1px solid grey;text-align:center;line-height:16%">
+                              {% if result.course.teacher.gender == 'masculin' %}
+                            <i style="font-size:12px;">Mr. {{result.course.teacher.first_name}}</i>
+                        {% else %}
+                            <i style="font-size:12px;">Mme. {{result.course.teacher.first_name}}</i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+<hr class="line">
+                   <table class="table table-bordered" id="new_table">
+                        <thead>
+                        <tr>
+                            {% if report_card.sem_average >= reussite.average %}
+                            <th colspan="7" style="background-color:#1bcfb4;text-align:center;border:1px solid grey;padding:5px;line-height:16%"><strong>STATUS : REUSSIE</strong></th>
+                            <th style="text-align:center;line-height:16%;padding:5px;"><img src="static/Mainapp/images/check.png" style="width:25px;height:25px;"></th>
+                            {% else %}
+                            <th colspan="7" style="background-color:#fe7096;text-align:center;padding:5px;line-height:16%"><strong>STATUS : ECHEC</strong> </th>
+                            <th style="text-align:center;line-height:16%;padding:5px;"><img src="static/Mainapp/images/rejected.png" style="width:25px;height:25px;"></th>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                         <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>RAPPEL EVALUATIONS</li></strong>
+                              <li><i>Remind evaluations</i></li>
+                          </ul></th>
+                             <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none" style="padding:0px;">
+                              {% if report_card.sequence == '2 eme Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL TRIMESTRE 1</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 1</i></li>
+                                  {% endif %}
+                                  {% if report_card.sequence == '4 eme Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL DU TRIMESTRE 2</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 3</i></li>
+                                  {% endif %}
+                                  {% if report_card.sequence == '6 eme Sequence' %}
+                                  <strong><li style="padding:0px;">TRAVAIL DU TRIMESTRE 3</li></strong>
+                                  <li style="padding:0px;"><i>Work Sequence 5</i></li>
+                                  {% endif %}
+
+                          </ul></th>
+                       <th style="border:1px solid grey;text-align:center;padding:0px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>CONDUITE</li></strong>
+                              <li><i>Discipline term 1</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>CONSEIL DE CLASSE</li></strong>
+                              <li><i>Class Council</i></li>
+                          </ul></th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="border:1px solid grey;width:100px;line-height:16%;padding:2px;">
+                                MOY. SEQ 1
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                {% if report_card.sequence == '2 eme Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;width:130px;line-height:16%">
+                                 TOT. POINTS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                               <strong style="font-size:15px;text-align:center;">{{greate_total2}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;width:140px;line-height:16%">
+                                  ABS .TOT. (Heures)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                 <strong style="font-size:15px;">{{remark.hours_no}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;width:120px;line-height:16%">
+                                AVERT. CONDUITE
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                            {% if remark.hours_no >= avert_conduite.hours and remark.hours_no <= avert_conduite.hours2 %}
+                                      <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">
+                                MOY. SEQ 2
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                {% if report_card.sequence == '2 eme Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average2}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                 TOTAL COEFS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                <strong style="font-size:15px;">{{coeff_total2}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  ABS.NONJUST.(Heures)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{remark.hours_no}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                BLAME CONDUITE
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                               {% if remark.hours_no >= blame_conduite.hours %}
+                                    <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">
+                                MOY. SEQ 3
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                {% if report_card.sequence == '4 eme Sequence' %}
+                                <strong style="font-size:15px;">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            {% if sequence == '2 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 MOY. TRIM 1
+                            </td>
+                            {% endif %}
+                            {% if sequence == '4 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 MOY. TRIM 2
+                            </td>
+                            {% endif %}
+                            {% if sequence == '6 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 MOY. TRIM 3
+                            </td>
+                            {% endif %}
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                               <strong style="font-size:15px;">{{report_card.sem_average}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  CONSIGNES (Jours)
+                            </td>
+                            <td style="border:1px solid grey;">
+
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                TAB. D'HONNEUR
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                                {% if report_card.sem_average >= table.average and remark.hours_no <= table.hours %}
+                                     <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">
+                                MOY. SEQ 4
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                        {% if report_card.sequence == '4 eme Sequence' %}
+                               <strong style="font-size:15px;text-align:center;">{{report_card.average2}}</strong>
+                                {% endif %}
+                            </td>
+
+                            {% if report_card.sequence == '2 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 RANK SEQ 2
+                            </td>
+                            {% endif %}
+
+                            {% if report_card.sequence == '4 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 RANK SEQ 4
+                            </td>
+                            {% endif %}
+                            {% if report_card.sequence == '6 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%">
+                                 RANK SEQ 6
+                            </td>
+                            {% endif %}
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                                <strong style="font-size:15px;">{{report_card.rank}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  CONSIGNES (Heures)
+                            </td>
+                            <td style="border:1px solid grey;">
+
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                ENCOURAGEMENTS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                           {% if report_card.sem_average >= encouragement.average  and remark.hours_no <= encouragement.hours %}
+                                <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">
+                                MOY. SEQ 5
+                            </td>
+                            <td style="border:1px solid grey;">
+                            {% if report_card.sequence == '6 eme Sequence' %}
+                               <strong style="font-size:15px;text-align:center;line-height:16%">{{report_card.average}}</strong>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                 NBRE DE MATIERES
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                               <strong style="font-size:15px;">{{student.course.all.count}}/{{courses.all.count}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                  EXCLUSIONS (Jours)
+                            </td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                               <strong style="font-size:15px;">{{remark.jr_exclusions}}</strong></td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                FELICITATIONS
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                           {% if report_card.sem_average >= felicitations.average and remark.hours_no <= felicitations.hours %}
+                                      <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:16%">MOY. SEQ 6</td>
+                            <td style="border:1px solid grey;line-height:16%">
+                                {% if report_card.sequence == '6 eme Sequence' %}
+                               <strong style="font-size:15px;text-align:center;">{{report_card.average2}}</strong>
+                                {% endif %}</td>
+                            <td style="border:1px solid grey;line-height:16%">MOYENNE CLASSE</td>
+                            <td style="border:1px solid grey;line-height:16%"></td>
+                            <td style="border:1px solid grey;line-height:16%">EXCLUSIONS (heures)</td>
+                            <td style="border:1px solid grey;text-align:center;line-height:16%">
+                               <strong style="font-size:15px;line-height:16%">{{remark.hr_exclusions}}</strong>
+                            </td>
+                            <td style="border:1px solid grey;line-height:16%">AVERT. TRAVAIL</td>
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;">
+                                {% if report_card.sem_average >= avert_travail.average and report_card.sem_average <= avert_travail.average2 %}
+                                      <img src="static/Mainapp/images/check.png" style="width:20px;height:20px;">
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <thead>
+                        <tr>
+                         <th style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="2">
+                              <ul class="display-none">
+                              <strong><li>RAPPEL TRIMESTRES</li></strong>
+                              <li><i>Terminal Summaries</i></li>
+                          </ul></th>
+                             <th style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="1">
+                              <ul class="display-none">
+                                  <strong><li>MOY. DU 1 ER</li></strong>
+                                  <li><i>AVG OF THE 1ST</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;" colspan="1">
+                              <strong><span style="font-size:15px;">{{report_card.first_average}}</span></strong>
+                          </th>
+                       <th style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="1">
+                              <ul class="display-none">
+                              <strong><li>MOY. DU DERNIER </li></strong>
+                              <li><i>AVG OF THE LAST</i></li>
+                          </ul></th>
+                            <th style="border:1px solid grey;text-align:center;" colspan="1">
+                              <strong><span style="font-size:15px;">{{report_card.last_average}}</span></strong>
+                          </th>
+                            <td style="border:1px solid grey;">BLAME. TRAVAIL :</td>
+                            <td style="border:1px solid grey;text-align:center;">
+                                {% if report_card.sem_average <= blame_travail.average %}
+                                     <i class="mdi mdi-check-all" style="color:green; font-size:20px;"></i>
+                            {% endif %}
+                            </td>
+                        </tr>
+                   </thead>
+                       <tbody>
+                           <tr>
+                            <td style="border:1px solid grey;line-height:16%;padding:2px;">MOY. TRIM 1</td>
+                               {% if report_card.sequence == '2 eme Sequence' %}
+                            <td style="border:1px solid grey;line-height:16%;text-align:center;"><strong style="font-size:15px;">{{report_card.sem_average}}</strong> </td>
+                               {% endif %}
+                               <td style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="2"><strong>VISA DU PARENT</strong></td>
+                               <td style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="2"><strong>DECISION DU CONSEIL DE CLASSE</strong></td>
+                               <td style="border:1px solid grey;text-align:center;padding:2px;background-color:#f2f2f2;line-height:16%" colspan="2"><strong>VISA DU CHEF D'ETABLISSEMENT</strong></td>
+                        </tr>
+                       <tr>
+
+                            <td style="border:1px solid grey;padding:2px;line-height:16%">MOY. TRIM 2</td>
+
+                            <td style="border:1px solid grey;">{% if report_card.sequence2 == '4 eme Sequence' %}{{report_card.sem_average2}}  {% endif %}</td>
+
+                            <td style="border:1px solid grey;" colspan="2" rowspan="2"></td>
+
+
+                            {% if report_card.average <= travail_null.average %}
+                           <td style="border:1px solid grey;text-align:center;background-color:#fe7096;" colspan="2" rowspan="2">
+                                TRAVAIL NULL
+                               </td>
+                                {% endif %}
+                                {% if report_card.average2 >= travail_mauvais.average and report_card.average2 <= travail_mauvais.average2 %}
+                                 <td style="border:1px solid grey;text-align:center;background-color:#fe7096;" colspan="2" rowspan="2">
+                           TRAVAIL MAUVAIS
+                       </td>
+                                {% endif %}
+
+                                {% if report_card.average2 >= travail_passable.average and report_card.average2 <= travail_passable.average2 %}
+                                 <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;" colspan="2" rowspan="2">
+                           TRAVAIL PASSABLE
+                                 </td>
+                                {% endif %}
+
+                           {% if report_card.average2 >= travail_assez_bien.average and report_card.average2 <= travail_assez_bien.average2 %}
+                           <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;line-height:16%" colspan="2" rowspan="2">TRAVAIL ASSEZ BIEN</td>
+                                {% endif %}
+
+                                {% if report_card.average2 >= travail_bien.average and report_card.average2 <= travail_bien.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;" colspan="2" rowspan="2">
+                                TRAVAIL BIEN
+                            </td>
+                                {% endif %}
+
+                                {% if report_card.average2 >= travail_tres_bien.average and report_card.average2 <= travail_tres_bien.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;" colspan="2" rowspan="2">
+                                TRAVAIL TRES BIEN
+                            </td>
+                                {% endif %}
+                                {% if report_card.average2 >= travail_excellent.average and report_card.average2 <= travail_excellent.average2 %}
+                            <td style="border:1px solid grey;text-align:center;background-color:#1bcfb4;" colspan="2" rowspan="2">
+                                TRAVAIL EXCELLENT
+                            </td>
+                                {% endif %}
+                            </td>
+                            <td style="border:1px solid grey;"  colspan="2" rowspan="2"></td>
+                        </tr>
+                       <tr>
+
+                            <td style="border:1px solid grey;padding:2px;line-height:16%">MOY. TRIM 3</td>
+
+                            <td style="border:1px solid grey;">{% if report_card.sequence == '6 eme Sequence' %}{{report_card.sem_average}}  {% endif %}</td>
+
+
+                        </tr>
+                       <tr>
+                            <td class="text-info" style="border:1px solid grey;text-align:center;padding:5px;" colspan="8">Les requetes sont recevables une (01) semaine au plus tard apres la remise des bulletins</td>
+                        </tr>
+                           <tr>
+                            <td class="text-info" style="border:1px solid grey;text-align:center;padding:5px;" colspan="8"><i>Complains are admissible one (01) week latest after report card delivery</i></td>
+                        </tr>
+                       </tbody>
+                        </tbody>
+                    </table>
+
+                    {% endif %}
+
+
+                    </div>
+
+              </div>
+            </div>
+</body>
+

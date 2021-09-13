@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% if headmasters %}
+    <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                    {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+                     <div class="row">
+                        <div class="col-md-9">
+                  <h3><img src="{% static 'Mainapp/images/cap.png' %}" class="heading-icon">Liste des surveillants generaux et leurs classes</h3>
+                        </div>
+                    </div>
+                    <hr class="line">
+                  <table class="table table-bordered " id="new_table">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center;">
+                          Utilisateur
+                        </th>
+                        <th style="text-align:center;">
+                          Noms et Prenoms
+                        </th>
+                        <th style="text-align:center;">
+                          Nombre de classes
+                        </th>
+                          <th style="text-align:center;">
+                              Classes
+                        </th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for headmaster in headmasters %}
+                    {% if headmaster != user %}
+
+                    {% csrf_token %}
+                        <tr>
+                            <form method="get" action="{% url 'remove class' %}">
+                        <td class="py-1" style="text-align:center;">
+                          <img src="{% static 'Mainapp/images/faces-clipart/pic-1.png' %}" alt="image"/>
+                        </td>
+                        <td style="text-align:center;">
+                            {% if headmaster.gender == 'masculin' %}
+                            <strong>Mr. {{headmaster.first_name}}</strong>
+                            {% else %}
+                            <strong>Mme. {{headmaster.first_name}}</strong>
+                            {% endif %}
+                            <input type="text" name="teacher_id" value="{{teacher.id}}" class="hidden">
+                        </td>
+                            <td style="text-align:center;">
+                                <strong class="text-danger" style="text-align:center;font-size:20px;">{{headmaster.classrooms.all.count}}</strong>
+                            </td>
+                            <td class="hidden">
+                                <input type="text" name="headmaster_id" value="{{headmaster.id}}">
+                            </td>
+                           <td>
+                            <ul class="list-ticked">
+                                {% for class in headmaster.classrooms.all %}
+                                <input type="text" class="hidden" value="{{class.id}}" name="classroom_id">
+                                <li style="text-align:center;padding:5px;">{{class.name}}<span style="margin-left:50px;"><button class="bagde badge-danger bd" style="border-radius:100%;margin-left:10px;">X</button></span> </li>
+                                {% endfor %}
+                            </ul>
+                           </td>
+                    </form>
+                            <form action="{% url 'add headmaster class' %}">
+                            <input type="text" name="headmaster_id" value="{{headmaster.id}}" class="hidden">
+                                <td style="text-align:center;">
+                                <button type="submit" class="btn btn-inverse-primary btn-sm">+classe</button>
+                            </td>
+                            </form>
+                      </tr>
+
+                    {% endif %}
+                     {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% else %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                     <div class="row">
+                        <div class="col-md-8">
+                  <h3><img src="{% static 'Mainapp/images/books.png' %}" class="heading-icon"> Liste vide !</h3>
+                        </div>
+                     </div>
+<hr class="line">
+                    <div class="row">
+                         <div class="col-md-8">
+                             <p class="card-description">Souhaitez-vous ajouter un collegue ?</p>
+                         </div>
+                         <div class="col-md-4">
+                            <a href="{% url 'add collegue' %}" class="btn btn-gradient-primary">Ajouter un collegue</a>
+                        </div>
+                     </div>
+                </div>
+              </div>
+</div>
+{% endif %}
+{% endblock %}

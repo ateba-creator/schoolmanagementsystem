@@ -1,0 +1,183 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3 style="text-align:center;"><img src="{% static 'Mainapp/images/brain.png' %}" class="heading-icon">LISTE DES BULLETINS DE LA <span class="text-primary">{{sequence}}</span> - (<span class="text-primary">{{academic_year}}</span>)</h3>
+                <hr class="line">
+<div class="row" style="margin-top:-20px;">
+                        <div class="col-md-7">
+                             <form class="d-flex align-items-center h-100" action="{% url 'report card list search results' %}" method="get">
+
+                                 <div class="row" style="margin-top:20px;">
+                                <div class="col-md-8" style="width:450px;">
+                   <div class="search-field d-none d-md-block">
+            <div class="input-group">
+              <input type="text" class="form-control bg-transparent " name="q" placeholder="Rechercher un eleve">
+              <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                <input type="text" value="{{sequence}}" name="sequence" class="hidden">
+                <input type="text" value="{{academic_year}}" name="academic_year" class="hidden">
+            </div>
+        </div>
+                                </div>
+                            <div class="col-md-4" style="margin-left:-40px;">
+                                <button type="submit" class="btn btn-inverse-primary btn-icon" style="width:100px;height:35px;">Rechercher</button>
+                            </div>
+                  </div></form>
+                        </div>
+
+                         <div class="col-sm-3" style="margin-top:20px;">
+                                  <div class="container" style="margin-left:130px;">
+	<div class="btn-group sort-btn">
+		<button class="btn btn-primary btn-rounded" type="button"  data-sort="none" aria-haspopup="true" aria-expanded="false">Trier</button>
+		<button class="btn btn-primary btn-rounded dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sort"></i></button><!-- .dropdown-toggle adds rounded borders and reduces padding. It does not trigger dropdowns. -->
+		<ul class="dropdown-menu shadow" style="margin-left:-115px;width:200px;">
+			<li style="text-align:center;">
+                <form action="{% url 'report card sorted list' %}" method="get">
+                     <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                    <input type="text" value="masculin" class="hidden" name="cathegory">
+                     <input type="text" value="{{sequence}}" name="sequence" class="hidden">
+                <input type="text" value="{{academic_year}}" name="academic_year" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">Masculin</button>
+                </form>
+            </li>
+			<li style="text-align:center;">
+                <form action="{% url 'report card sorted list' %}" method="get">
+                     <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                    <input type="text" value="feminin" class="hidden" name="cathegory">
+                     <input type="text" value="{{sequence}}" name="sequence" class="hidden">
+                <input type="text" value="{{academic_year}}" name="academic_year" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">Feminin</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'report card sorted list' %}" method="get">
+                     <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                    <input type="text" value="ordre alphabetique" class="hidden" name="cathegory">
+                     <input type="text" value="{{sequence}}" name="sequence" class="hidden">
+                <input type="text" value="{{academic_year}}" name="academic_year" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">Ordre Alphabetique</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'report card sorted list' %}" method="get">
+                     <input type="text" value="{{classroom.id}}" name="id" class="hidden">
+                    <input type="text" value="tous" class="hidden" name="cathegory">
+                     <input type="text" value="{{sequence}}" name="sequence" class="hidden">
+                <input type="text" value="{{academic_year}}" name="academic_year" class="hidden">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">Tous</button>
+                </form>
+            </li>
+		</ul>
+	</div>
+</div>
+                         </div>
+                    </div>
+                    <hr class="line">
+                  <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                          <th></th>
+                        <th style="text-align:center;">
+                          Nom et Prenoms
+                        </th>
+                          <th style="text-align:center;">
+                            Genre
+                          </th>
+                          <th style="text-align:center;">
+                            Date de naissance
+                          </th>
+                          <th style="text-align:center;">
+                            Lieu de naissance
+                          </th>
+                          <th style="text-align:center;">
+                              Tableau d'honeur
+                          </th>
+                          <th style="text-align:center;">
+                              Bulletins
+                          </th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in object_list %}
+
+                    {% csrf_token %}
+                        <tr>
+                        <td style="text-align:center;">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center;text-transform:uppercase;width:250px;"><strong>{{student.first_name}} {{student.last_name}}</strong></td>
+                            <td style="text-align:center">{{student.gender}}</td>
+                            <td style="text-align:center">{{student.date_of_birth}}</td>
+                            <td style="text-align:center">{{student.place_of_birth}}</td>
+
+                            {% if student.honor_rolls.all.count >= 1 %}
+
+                            {% for roll in student.honor_rolls.all %}
+                                    {% if roll.year == academic_year and roll.sequence == sequence %}
+                            <form method="get" action="{% url 'honor roll' %}">
+                                <input type="text" name="student_id" value="{{student.id}}" class="hidden">
+                                <input type="text" name="academic_year" value="{{academic_year}}" class="hidden">
+                                <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                            <td><button class="badge badge-info" type="submit">Tableau d'honneur</button></td>
+                            </form>
+                                    {% else %}
+
+                                    <td>
+                                    </td>
+                                {% endif %}
+                                {% endfor %}
+
+                            {% else %}
+                            <td></td>
+                            {% endif %}
+ <form method="get" action="{% url 'student report card' %}">
+                             <td class="hidden">
+                            <input type="text" name="student_id" value="{{student.id}}" class="hidden">
+                                <input type="text" name="academic_year" value="{{academic_year}}" class="hidden">
+                                <input type="text" name="sequence" value="{{sequence}}" class="hidden">
+                            </td>
+                            <td style="text-align:center">
+                            <button type="submit" class="badge badge-success">Bulletin</button>
+                        </td>    </form>
+                      </tr>
+
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow"> <h3 style="text-align:center;">Statistiques des resultats de la {{sequence}}</h3>
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <div class="col-lg-8 grid-margin stretch-card" style="margin-left:150px;margin-top:-20px;">
+              <div class="card">
+                <div class="card-body">
+                  <canvas id="doughnutChart" style="height:250px"></canvas>
+                </div>
+              </div>
+            </div>
+                    </div>
+                </div>
+              </div>
+</div>
+{% endblock %}

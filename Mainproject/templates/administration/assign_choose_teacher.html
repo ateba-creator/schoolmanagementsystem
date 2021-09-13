@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+
+
+{% for message in messages %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+
+ <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                  <h3><img src="{% static 'Mainapp/images/education.png' %}" class="heading-icon">Choisisez l'enseignant de <strong class="text-primary">{{course.name}}</strong> en <strong class="text-primary">{{classroom.name}}</strong></h3>
+                  <p class="card-description" style="margin-left:100px;">
+                    Pour choisir un enseignant clickez sur <code>choisir</code>
+                  </p>
+                    <hr class="line">
+                  <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th style="text-align:center;">
+                          Photo
+                        </th>
+                        <th style="text-align:center;">
+                          Noms
+                        </th>
+                        <th style="text-align:center;">
+                          Departement
+                        </th>
+                        <th colspan="2" style="text-align:center;">
+                          Genre
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for teacher in teachers %}
+                    <form method="get" action="{% url 'assign teacher done' %}">
+                    <tr>
+                        <td class="py-1" style="text-align:center;">
+                          <img src="{% static 'Mainapp/images/faces-clipart/pic-1.png' %}" alt="image"/>
+                        </td>
+                        <td style="text-align:center;text-transform:uppercase;">
+                            <strong>{{teacher.first_name}}</strong>
+                        </td>
+                        <td>
+                          {% for dep in teacher.department.all %}
+                            <ul class="list-ticked" style="padding-left:40px;">
+                                <li style="padding:0px;">{{dep.name}}</li>
+                            </ul>
+                          {% endfor %}
+                        </td>
+                        <td style="text-align:center;">
+                          {{teacher.gender}}
+                        </td>
+                        <td style="text-align:center;">
+                          <input type="text" value="{{course.id}}" name="course_id" class="hidden">
+                          <input type="text" value="{{classroom.id}}" name="classroom_id" class="hidden">
+                          <input type="text" value="{{classroom.name}}" name="classroom" class="hidden">
+                          <input type="text" value="{{teacher.id}}" name="teacher_id" class="hidden">
+                          <button type="submit" class="btn btn-inverse-primary btn-sm">Choisir</button>
+                        </td>
+                      </tr>
+                    </form>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+ </div>
+
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body shadow">
+
+            <div style="margin-top:-20px;">
+                <h3 class="text-primary" ><img src="{% static 'Mainapp/images/textbook.png' %}" class="heading-icon">{{classroom.name}}</h3>
+                </h4>
+            </div>
+            <hr class="line">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="text-align:center;">Nom de la classe</th>
+                        <th style="text-align:center;">Nombre de matieres</th>
+                        <th style="text-align:center;">Profeseur principal </th>
+                        <th style="text-align:center;">Nombre d'eleves </th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td style="width:300px;text-align:center;">
+                            {{classroom.name}}
+                        </td>
+
+                        <td style="text-align:center;">
+                            <strong class="text-danger" style="font-size:25px;">{{course_num}}</strong>
+                        </td>
+                        <td style="text-align:center;">
+                            {% if classroom.main_teacher.gender == 'masculin' %}
+                            <strong>Mr. {{classroom.main_teacher.first_name}}</strong>
+                            {% else %}
+                             <strong>Mme. {{classroom.main_teacher.first_name}}</strong>
+                            {% endif %}
+                        </td>
+
+                        <td style="text-align:center;">
+                            <strong class="text-danger"  style="font-size:25px;">{{classroom.students.all.count}}</strong>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="line">
+
+            <div class="col-md-12" style="margin-top:30px;">
+                <div class="row">
+                <h3 class="text-primary"><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Resultats</h3>
+                </div>
+                <hr class="line">
+                <div class="row">
+                     <div class="col-md-6">
+                          <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="{% url 'search result' %}" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control bg-transparent " name="q" placeholder="Rechercher un resultat sequentiel">
+            </div>
+              <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+            <button type="submit" class="btn btn-inverse-primary btn-icon" style="width:100px;height:35px;">Rechercher</button>
+          </form>
+        </div>
+                     </div>
+ <div class="col-md-6">
+<div class="container" style="margin-left:190px;">
+	<div class="btn-group sort-btn">
+		<button class="btn btn-primary" type="button"  data-sort="none" aria-haspopup="true" aria-expanded="false">Trier</button>
+		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sort"></i></button><!-- .dropdown-toggle adds rounded borders and reduces padding. It does not trigger dropdowns. -->
+		<ul class="dropdown-menu shadow" style="margin-left:-115px;width:200px;">
+			<li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                    <input type="text" value="1 ere Sequence" class="hidden" name="cathegory">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">1 ere Sequence</button>
+                </form>
+            </li>
+			<li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                    <input type="text" value="2 eme Sequence" class="hidden" name="cathegory">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">2 eme Sequence</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                    <input type="text" value="3 eme Sequence" class="hidden" name="cathegory">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">3 eme Sequence</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                    <input type="text" value="4 eme Sequence" class="hidden" name="cathegory">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">4 eme Sequence</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                    <input type="text" value="5 eme Sequence" class="hidden" name="cathegory">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">5 eme Sequence</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'results sorted list' %}" method="get">
+                    <input type="text" value="6 eme Sequence" class="hidden" name="cathegory">
+                     <input type="text" value="{{classroom.id}}" class="hidden" name="id">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">6 eme Sequence</button>
+                </form>
+            </li>
+		</ul>
+	</div>
+</div>
+ </div>
+                </div>
+                    <hr class="line">
+
+                {% if results %}
+                <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                    <tr>
+                        <th style="text-align:center;" colspan="2">Matieres</th>
+                        <th style="text-align:center;">Enseignants</th>
+                        <th style="text-align:center;" colspan="2">Notes</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for result in results %}
+                    <form method="get" action="{% url 'student results detail' %}">
+                        <tr>
+                            <td style="text-align:center;">{{forloop.counter}}</td>
+                            <td style="text-align:center;">
+                                <strong>{{result.course.name}}  </strong>
+                            </td>
+                            <td style="text-align:center;">
+                                 {% if result.course.teacher.gender == 'masculin' %}
+                            <strong>Mr. {{result.course.teacher.first_name}}</strong>
+                            {% else %}
+                             <strong>Mme. {{result.course.teacher.first_name}}</strong>
+                            {% endif %}
+                            </td>
+                            <td style="text-align:center;">
+                                <strong style="padding-right:20px;padding-left:20px;">{{result.sequence}} - (<span class="text-danger">{{result.academic_year}}</span>)</strong>
+                            </td>
+                            <td style="text-align:center;">
+                                <button type="submit" class="badge badge-primary">Details</button>
+                            </td>
+                            <input type="text" name="sequence" value="{{result.sequence}}" class="hidden">
+                            <input type="text" name="teacher_sequence_id" value="{{result.id}}" class="hidden">
+                            <input type="text" name="academic_year" value="{{result.academic_year}}" class="hidden">
+
+                            <input type="text" name="course_id" value="{{result.course.id}}" class="hidden">
+                        </tr>
+                    </form>
+
+                    {% endfor %}
+                    {% else %}
+                    <div class="alert alert-info" style="text-align:center;">Resultats non disponible !. Ressayez plus tard ...</div>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <hr class="line">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,609 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+ {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+{% for group in user.groups.all %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+                    {% if group.name == 'administrateur' or group.name == 'adminteacher' or group.name == 'adminparent' or group.name == 'adminparenteacher' %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h3><img src="{% static 'Mainapp/images/draw.png' %}" class="heading-icon">Ajoutez des conseils au conseil de classe</h3>
+                        </div>
+                    </div>
+                    <hr class="line">
+<div class="row" style="border:1px solid #CDCDCD;padding:20px;border-radius:10px;">
+     <div class="col-md-6">
+         <h4 style="text-align:center;" class="text-primary">conseils de classe (merit)</h4>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic7" aria-expanded="false" aria-controls="ui-basic7">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Encouragements</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic7">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Moyenne minimal</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                         <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Heures d'absences maximales</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="hours">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="encouragements">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+
+    <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic20" aria-expanded="false" aria-controls="ui-basic20">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Felicitations</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic20">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Moyenne superieur ou equal a </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                         <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Heures d'absences maximales</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="hours">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="felicitations">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic8" aria-expanded="false" aria-controls="ui-basic8">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Tableau d'honneur</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic8">
+              <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Moyenne minimal</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                         <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Heures d'absences maximales</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="hours">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="tableau">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                    <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic9" aria-expanded="false" aria-controls="ui-basic9">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Reussite</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic9">
+                 <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+               <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Moyenne minimale</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="reussite">
+                <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+                 </form>
+            </div>
+          </div>
+    <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic11" aria-expanded="false" aria-controls="ui-basic11">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Blame Travail</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic11">
+            <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+               <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Moin de (Moyenne) </label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="blame travail">
+                <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+                 </form>
+            </div>
+          </div>
+    <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic12" aria-expanded="false" aria-controls="ui-basic12">
+              <button type="submit" class="btn btn-dark menu-title" style="width:380px;"> + Avertissement Travail</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic12">
+              <form method="post">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+               <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                         </div>
+               <div class="col-md-12">
+                         <div class="form-group">
+                                <label>Et (Moyenne)</label>
+                             <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                         </div>
+                        <input type="text" class="hidden" name="status" value="avertissement travail">
+                <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+                 </form>
+            </div>
+          </div>
+</div>
+                    <div class="col-md-6">
+                        <h4 style="text-align:center;" class="text-primary">conseils de classe (Travail)</h4>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic27" aria-expanded="false" aria-controls="ui-basic27">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail null</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic27">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Moyenne inferiere a </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail null">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic21" aria-expanded="false" aria-controls="ui-basic21">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail mauvais</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic21">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail mauvais">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic22" aria-expanded="false" aria-controls="ui-basic22">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail passable</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic22">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne) </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail passable">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic28" aria-expanded="false" aria-controls="ui-basic28">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail assez bien</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic28">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne) </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail assez bien">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic23" aria-expanded="false" aria-controls="ui-basic23">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail bien</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic23">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne) </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail bien">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic24" aria-expanded="false" aria-controls="ui-basic24">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail tres bien</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic24">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne) </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail tres bien">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+                        <div class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic26" aria-expanded="false" aria-controls="ui-basic26">
+              <button type="submit" class="btn btn-inverse-dark menu-title" style="width:380px;"> + Travail excellent</button>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic26">
+
+                <form method="post" action="{% url 'class council' %}">
+                    {% csrf_token %}
+                    <div style ="border:1px solid #e3e9ed;padding:10px;width:380px;margin-left:16px;border-radius:10px;" class="shadow">
+              <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Entre (Moyenne)</label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Et (Moyenne) </label>
+                                    <input type="text" class="form-control-special text-dark" required="required" name="average2">
+                            </div>
+                        </div>
+                        <input type="text" class="hidden" name="status" value="travail excellent">
+                    <hr class="line">
+                    <div style="text-align:center;">
+                    <button type="submit" class="btn btn-rounded btn-success">save</button>
+                    </div>
+                    </div>
+
+                </form>
+
+            </div>
+          </div>
+
+                    </div>
+</div>
+                    {% endif %}
+
+<hr>
+                    <h3><img src="{% static 'Mainapp/images/backpack.png' %}" class="heading-icon">Liste des sactions et descicions du conseil de classe</h3>
+                    <hr class="line">
+                    <table class="table table-bordered" id="new_table">
+                        <thead>
+                        <tr>
+                            <th colspan="4" style="text-align:center;"><i class=" mdi mdi-help-circle-outline " style="font-size:25px;padding-right:10px;"></i> <strong>Sanctions et conduite du conseil de classe</strong></th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+
+                        {% for council in councils %}
+                        <form action="{% url 'delete council' %}" method="post">
+                            {% csrf_token %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+
+                            {% if council.name == "encouragements" or council.name == "felicitations" or council.name == "reussite" or council.name == "tableau d'honneur" or council.name == "travail excellent"  or council.name == "travail assez bien"  or council.name == "travail bien" or council.name == "travail tres bien" %}
+                            <td><strong style="color:green;">{{council.name}}</strong></td>
+                                {% else %}
+                                {% if council.name == 'travail passable' %}
+                                <td><strong class="text-warning">{{council.name}}</strong></td>
+                                {% endif %}
+                                {% if council.name != "travail passable" %}
+                                <td><strong class="text-danger">{{council.name}}</strong></td>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if council.name == 'travail null' %}
+                            <td>
+                               <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+
+                            {% if council.name == 'travail mauvais' %}
+                            <td>
+                               <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'travail passable' %}
+                            <td>
+                               <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'travail bien' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'travail tres bien' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'travail assez bien' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+
+                            {% if council.name == 'travail excellent' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+
+                            {% if council.name == 'encouragements' %}
+                            <td>
+                                <ul>
+                                    <li>Moyenne superieur ou equale a : <strong>{{council.average}}</strong></li>
+                                    <li>Heures d'absences moin de : <strong>{{council.hours}}</strong></li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == "tableau d'honneur" %}
+                            <td>
+                                <ul>
+                                    <li>Moyenne superieur ou equale a : <strong>{{council.average}}</strong></li>
+                                    <li>Heures d'absences moin de : <strong>{{council.hours}}</strong></li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == "felicitations" %}
+                            <td>
+                                <ul>
+                                    <li>Moyenne superieur ou equale a : <strong>{{council.average}}</strong></li>
+                                    <li>Heures d'absences moin de : <strong>{{council.hours}}</strong></li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'avertissement conduite' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.hours}}</strong> et <strong>{{council.hours2}}</strong> heures d'absences</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'avertissement travail' %}
+                            <td>
+                                <ul>
+                                    <li>Entre : <strong>{{council.average}}</strong> et <strong>{{council.average2}}</strong> de moyenne</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'blame conduite' %}
+                            <td>
+                                <ul>
+                                    <li>A partir de <strong>{{council.hours}}</strong> heures d'absences</li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                             {% if council.name == 'blame travail' %}
+                            <td>
+                                <ul>
+                                    <li>Moyenne inferieur a  : <strong>{{council.average}}</strong></li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            {% if council.name == 'reussite' %}
+                            <td>
+                                <ul>
+                                <li>Moyenne superieur ou equale a : <strong>{{council.average}}</strong></li>
+                                </ul>
+                            </td>
+                            {% endif %}
+                            <td class="hidden">
+                                <input type="text" name="council_id" value="{{council.id}}">
+                            </td>
+                            <td class="hidden">
+                                <input type="text" name="status" value="delete">
+                            </td>
+                            {% if group.name == 'administrateur' or group.name == 'adminteacher' or group.name == 'adminparent' or group.name == 'adminparenteacher' %}
+                            <td style="text-align:center;">
+                                <button type="submit" class="badge badge-danger bd" style="border-radius:100%;">X</button>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        </form>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+{% endfor %}
+
+{% endblock %}

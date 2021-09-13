@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success shadow" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+ {% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger shadow" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+{% for group in user.groups.all %}
+{% if dates %}
+ <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div class="col-md-8">
+                  <h3><img src="{% static 'Mainapp/images/calendar.png' %}" class="heading-icon">Liste des dates deja enregistrees</h3>
+                        </div>
+                    <hr class="line">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                    <th colspan="2" style="text-align:center;">Noms</th>
+                    <th colspan="2" style="text-align:center;">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for date in dates %}
+                   <form method="get" action="{% url 'delete date' %}">
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                      <td style="text-align:center;">{{date.name}}</td>
+                        <td class="hidden"><input type="text" value="{{date.id}}" name="date_id"></td>
+                    <td style="text-align:center;">{{date.date}}</td>
+                    {% if group.name == 'administrateur' or group.name == 'adminteacher' or group.name == 'adminparent' or group.name == 'adminparenteacher' %}
+                        <td style="text-align:center;"> <span><button style="border-radius:100%;" type="submit" class="badge badge-danger bd">X</button> </span></td>
+                    {% endif %}
+                    </tr>
+                   </form>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                    <hr class="line">
+{% endif %}
+
+                     {% if group.name == 'administrateur' or group.name == 'adminteacher' or group.name == 'adminparent' or group.name == 'adminparenteacher' %}
+                    <div class="row">
+                        <div class="col-md-8">
+                  <h3><img src="{% static 'Mainapp/images/schedule.png' %}" class="heading-icon">Ajouter une date strategique</h3>
+                        </div>
+                    </div>
+                    <hr class="line">
+                    <form class="forms-sample shadow" style="padding:20px;border:1 px solid #D4D4D4" method="post" action="{% url 'add date' %}">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Noms de la date</label>
+                       <select name="name" class="form-control text-dark" style="text-align:center;">
+                           <option>Date limite de paiement des pensions scholaire</option>
+                            <option>Date limite de summision des notes 1 ere Sequence</option>
+                           <option>Date limite de summision des notes 2 eme Sequence</option>
+                           <option>Date limite de summision des notes 3 eme Sequence</option>
+                           <option>Date limite de summision des notes 4 eme Sequence</option>
+                           <option>Date limite de summision des notes 5 eme Sequence</option>
+                           <option>Date limite de summision des notes 6 eme Sequence</option>
+                           <option>Date limite de summision des heures d'absences 1 ere Sequence</option>
+                           <option>Date limite de summision des heures d'absences 2 eme Sequence</option>
+                           <option>Date limite de summision des heures d'absences 3 eme Sequence</option>
+                           <option>Date limite de summision des heures d'absences 4 eme Sequence</option>
+                           <option>Date limite de summision des heures d'absences 5 eme Sequence</option>
+                           <option>Date limite de summision des heures d'absences 6 eme Sequence</option>
+                           <option>Date limite de remise des bulletins</option>
+                           <option>Date limite de depart en conges (Trimestre 1)</option>
+                           <option>Date limite de depart en conges (Trimestre 2)</option>
+                           <option>Date limite de depart en conges (Trimestre 3)</option>
+                           <option>Date limite de la rentree scolaire</option>
+                       </select>
+                    </div>
+                        </div>
+                       <input type="text" value="date" name="status" class="hidden">
+                       <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Date</label>
+                       <input type="date" name="date" class="form-control" required="required">
+                    </div>
+                        </div>
+                    </div>
+                        <hr class="line">
+                        <div style="text-align:center;">
+                    <button type="submit" class="btn btn-gradient-primary">Ajouter</button>
+                        </div>
+                  </form>
+                     {% endif %}
+                </div>
+              </div>
+            </div>
+
+{% endfor %}
+
+
+{% endblock %}

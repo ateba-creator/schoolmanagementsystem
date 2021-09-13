@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/textbook.png' %}" class="heading-icon">Modfication de la {{classroom.name}}</h3>
+                        <hr class="line">
+                  <form class="forms-sample" method="get" action="{% url 'modify class done' %}">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                       <div class="col-md-6">
+                           <label>Section</label>
+                           <div class="form-group">
+                               <input type="text" value="{{classroom.section}}" name="section" class="form-control">
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <label>Enseignements</label>
+                           <div class="form-group">
+                               <input type="text" value="{{classroom.studies_type}}" name="studies_type" class="form-control">
+                           </div>
+                       </div>
+                    </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col-md-6">
+                           <label>Serie</label>
+                           <div class="form-group">
+                               <input type="text" value="{{classroom.group_type}}" name="group_type" class="form-control">
+                           </div>
+                       </div>
+                        <div class="col-md-6">
+                           <label>Nom de la classe</label>
+                           <div class="form-group">
+                               <input type="text" value="{{classroom.name}}" name="name" class="form-control">
+                           </div>
+                       </div>
+                    </div>
+                      <hr class="line">
+                       <div class="row" style="margin-top:25px;">
+                        <div class="col-md-6" style="text-align:center;">
+                            <input type="text" name="class_id" value="{{classroom.id}}" class="hidden">
+                               <button type="submit" class="btn btn-gradient-success" style="width:300px;">Sauvegarder</button>
+                       </div>
+                  </form>
+                            <div class="col-md-6" style="text-align:center;">
+                               <button type="submit" class="btn btn-gradient-danger" style="width:300px;">Annuler</button>
+                       </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+{% endblock %}

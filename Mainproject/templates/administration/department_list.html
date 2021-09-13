@@ -1,0 +1,129 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% if object_list %}
+<div class="col-lg-12 grid-margin stretch-card" id="department-list">
+              <div class="card">
+                <div class="card-body shadow">
+                   <form method="get" action="{% url 'department sorted list' %}">
+                       <div class="row">
+                        <div class="col-md-9">
+                  <h3><img src="{% static 'Mainapp/images/brain.png' %}" class="heading-icon">Liste des departements deja enrégistrés </h3>
+                        </div>
+                       <div class="col-md-3">
+                           <a href="{% url 'add department' %}" class="btn btn-inverse-primary btn-rounded">+ departement</a>
+                       </div>
+                       </div>
+                    </form>
+                <hr class="line">
+
+ <div class="row">
+                  <div class="col-md-5">
+                   <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="{% url 'department search results' %}" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control bg-transparent " name="q" placeholder="Rechercher une classe">
+            </div>
+            <button type="submit" class="btn btn-inverse-primary btn-icon" style="width:100px;height:35px;">Rechercher</button>
+          </form>
+        </div>
+                  </div>
+                        <div class="col-md-7">
+                    <div class="container" style="margin-left:285px;">
+	<div class="btn-group sort-btn">
+		<button class="btn btn-primary btn-rounded" type="button"  data-sort="none" aria-haspopup="true" aria-expanded="false">Trier</button>
+		<button class="btn btn-primary dropdown-toggle btn-rounded" data-toggle="dropdown"><i class="fa fa-sort"></i></button><!-- .dropdown-toggle adds rounded borders and reduces padding. It does not trigger dropdowns. -->
+		<ul class="dropdown-menu shadow" style="margin-left:-115px;width:200px;">
+			<li style="text-align:center;">
+                <form action="{% url 'department sorted list' %}" method="get">
+                    <input type="text" value="science" class="hidden" name="cathegory">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">science</button>
+                </form>
+            </li>
+			<li style="text-align:center;">
+                <form action="{% url 'department sorted list' %}" method="get">
+                    <input type="text" value="literaire" class="hidden" name="cathegory">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">literaire</button>
+                </form>
+            </li>
+            <li style="text-align:center;">
+                <form action="{% url 'department sorted list' %}" method="get">
+                    <input type="text" value="tous" class="hidden" name="cathegory">
+                <button type="submit" class="text-primary" tabindex="-1" data-type="alpha" style="border:none;width:200px;">tous</button>
+                </form>
+            </li>
+		</ul>
+	</div>
+</div>
+                        </div>
+                    </div>
+
+                    <hr class="line">
+                  <table class="table table-bordered table-striped" id="new_table">
+                    <thead>
+                      <tr>
+                          <th>
+                          </th>
+                        <th style="text-align:center;">
+                          Departements
+                        </th>
+                        <th style="text-align:center;">
+                          section
+                        </th>
+                          <th style="text-align:center;">
+                            Serie
+                          </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for department in object_list %}
+                    <form method="get" action="{% url 'department detail' %}">
+                    {% csrf_token %}
+                        <tr>
+                        <td style="text-align:center;">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center;">
+                                {{department.name}}
+                            </td>
+                            <td style="text-align:center;">
+                                {{department.section}}
+                            </td>
+                            <td style="text-align:center;">
+                          {{department.group_type}}
+                        </td>
+                            <td class="hidden">
+                            <input type="text" name="id" value="{{department.id}}">
+                            </td>
+                            <td style="text-align:center;">
+                            <button type="submit" class="btn btn-inverse-primary btn-sm">Details</button>
+                        </td>
+                      </tr>
+                    </form>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% else %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                     <div class="row">
+                        <div class="col-md-7">
+                  <h4 class="card-title"><i class=" mdi mdi-arrange-bring-forward " style="font-size:30px;padding-right:30px;color:#9a55ff"></i>Aucun departement enrégistré pour le moment</h4>
+                        </div>
+                         <div class="col-md-5">
+                             <p class="card-description">Souhaitez-vous ajouter un departement?</p>
+                            <a href="{% url 'add department' %}" class="btn btn-success">Ajouter un departement</a>
+                        </div>
+                     </div>
+                </div>
+              </div>
+</div>
+{% endif %}
+{% endblock %}

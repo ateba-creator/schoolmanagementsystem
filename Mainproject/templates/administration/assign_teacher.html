@@ -1,0 +1,149 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for group in user.groups.all %}
+{% for message in messages %}
+  {% if "info" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+  {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+
+{% if courses %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    {% if classroom_name %}
+                    <h3><img src="{% static 'Mainapp/images/books.png' %}" class="heading-icon">Liste des matieres de la {{classroom.name}}</h3>
+                    {% endif %}
+                    <hr class="line">
+                    <table class="table table-hover table-bordered" id="new_table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                          <th style="text-align:center;">Nom de la matiere</th>
+                          <th style="text-align:center;">Status</th>
+                          <th colspan="2" style="text-align:center;">Enseignant</th>
+                          <th style="text-align:center;">Changer l'enseignant</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                          <td style="text-align:center;">
+                              <strong>{{course.name}}</strong>
+                          </td>
+                        <td style="text-align:center;">
+                            {% if course.teacher == None %}
+                                    <span class="badge badge-danger">Non assigné</span>
+                            {% else %}
+                            <span class="badge badge-success">Assigné</span>
+                            {% endif %}
+                        </td>
+                        {% if course.teacher %}
+                        <td style="text-align:center;">
+                            {% if course.teacher.gender == 'masculin' %}
+                            <strong style="margin-left:20px;">Mr. {{course.teacher.first_name}}</strong>
+                            {% else %}
+                            <strong style="margin-left:20px;">Mme. {{course.teacher.first_name}}</strong>
+                            {% endif %}
+                            </td>
+                        {% else %}
+                        <td style="text-align:center;"><strong class="text-danger">Aucun</strong></td>
+                            {% endif %}
+
+
+                     {% if course.teacher == None %}
+                        <td style="text-align:center;">
+                            <form method="get" action="{% url 'assign choose teacher' %}">
+                            <input type="text" name="course_id" value="{{course.id}}" class="hidden">
+                                 <input type="text" name="class_id" value="{{classroom.id}}" class="hidden">
+                            <button type="submit" class="btn btn-inverse-danger btn-sm">Assigner</button>
+                            </form>
+                        </td>
+                        {% else %}
+                        <td style="text-align:center;">
+                            <form method="get" action="{% url 'course detail' %}">
+                                <input type="text" value="{{course.id}}" name="course_id" class="hidden">
+                                <input type="text" value="{{classroom.id}}" name="class_id" class="hidden">
+                            <button type="submit" class="btn btn-inverse-primary btn-sm">Details</button>
+                            </form>
+                        </td>
+                        <td style="text-align:center;">
+                        <form method="get" action="{% url 'assign choose teacher' %}">
+                                <input type="text" value="{{course.id}}" name="course_id" class="hidden">
+                                <input type="text" value="{{classroom.id}}" name="class_id" class="hidden">
+                            <button type="submit" class="btn btn-danger btn-sm">changer</button>
+                            </form>
+                        </td>
+                        {% endif %}
+
+                      </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                    <hr class="line">
+                    <a href="#choose_class" class="btn btn-primary">Choisir une autre classe</a>
+
+                <hr class="line">
+                </div>
+              </div>
+    </div>
+    {% endif %}
+<div class="col-md-12 grid-margin stretch-card" id="choose_class">
+              <div class="card">
+                <div class="card-body shadow">
+                    <h3><img src="{% static 'Mainapp/images/book.png' %}" class="heading-icon">Choissisez une classe</h3>
+                <p class="card-description" style="margin-left:100px;">Choisisez une classe pour assigner des enseignants au differentes matieres de cette classe</p>
+                    <hr class="line">
+
+                    <form class="forms-sample" method="get" action="{% url 'display class course list' %}" style="margin-left:80px;">
+
+                        {% csrf_token %}
+                        <div class="row" style="margin-left:20px;">
+                    <div class="form-group" style="width:300px;">
+                    <select class="form-control" name="classroom">
+                        {% for classroom in classrooms %}
+                        <option>{{classroom.name}}</option>
+                        {% endfor %}
+                    </select>
+                    </div> </div>
+
+                            <div class="col-md-3">
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Assigner</button>
+                              </div>
+
+
+                    </form>
+
+                </div>
+              </div>
+    </div>
+
+
+{% endfor %}
+{% endblock %}

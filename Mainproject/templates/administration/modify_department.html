@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                  <div class="row">
+                      <div class="col-md-12">
+                    <h3><img src="{% static 'Mainapp/images/education.png' %}" class="heading-icon">Modifications du departement : {{department.name}}</h3>
+                      </div>
+                    </div>
+                    <hr class="line">
+                    <form class="forms-sample" method="get" action="{% url 'save department' %}">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Section</label>
+                        <input type="text" value="{{department.id}}" name="id" class="hidden">
+                        <input type="text" name="section" value="{{department.section}}" style="text-align:center" class="form-control">
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Enseignement</label>
+                       <input type="text" name="studies_type" value="{{department.studies_type}}" style="text-align:center" class="form-control">
+                    </div>
+                        </div>
+                    </div>
+                        <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Serie</label>
+                         <input type="text" name="group_type" value="{{department.group_type}}" style="text-align:center" class="form-control">
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom de departement</label>
+                       <input type="text" name="name" value="{{department.name}}" style="text-align:center" class="form-control">
+                    </div>
+                        </div>
+                    </div>
+                        <hr class="line">
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Ajouter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

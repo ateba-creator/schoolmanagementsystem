@@ -1,0 +1,134 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+         <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+
+                    <div style="margin-top:-20px;">
+                    <h4>
+                        <img src="{% static 'Mainapp/images/faces/face1.jpg' %}" alt="profile" class="user-image">
+                        {% if course.teacher.gender == 'masculin' %}
+                        <div class="user-name">Mr. {{course.teacher.first_name}}</div>
+                        {% else %}
+                         <div class="user-name">Mme. {{course.teacher.first_name}}</div>
+                        {% endif %}
+                        <div class="text-dark" style="margin-left:500px;margin-top:-20px;padding-bottom:10px;">Nom de la matiere</div>
+                        <div class="user-name-1" style="margin-top:0px;">{{course.name}}</div>
+                    {% for group in user.groups.all %}
+                        {% if group.name == 'adminparent' %}
+                        <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Administrateur et Parent</div>
+                      {% endif %}
+                          {% if group.name == 'parentteacher' %}
+                        <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Enseignant et Parent</div>
+                      {% endif %}
+                          {% if group.name == 'intendparent' %}
+                        <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Intendant et Parent</div>
+                      {% endif %}
+                          {% if group.name == 'adminteacher' %}
+                        <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Proviseur et Enseignant</div>
+                      {% endif %}
+                  {% if group.name == 'enseignant' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Enseignant</div>
+                  {% endif %}
+                  {% if group.name == 'administrateur' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Proviseur</div>
+                  {% endif %}
+                  {% if group.name == 'intendant' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Intendant</div>
+                  {% endif %}
+                  {% if group.name == 'parent' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Parent</div>
+                  {% endif %}
+                            {% if group.name == 'censeur' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Censeur</div>
+                  {% endif %}
+                            {% if group.name == 'censeurteacher' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Censeur et Enseignant</div>
+                  {% endif %}
+                            {% if group.name == 'censeurparent' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Censeur et Parent</div>
+                  {% endif %}
+                            {% if group.name == 'surveillant general' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Surveillant General</div>
+                  {% endif %}
+                            {% if group.name == 'surveillantparent' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Surveillant General et Parent</div>
+                  {% endif %}
+                            {% if group.name == 'adminteacherparent' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Proviseur, Enseignant et Parent</div>
+                  {% endif %}
+                            {% if group.name == 'censerparentteacher' %}
+                <div class="text-danger" style="margin-top:-23px;margin-left:155px;">Censeur, Enseignant et Parent</div>
+                  {% endif %}
+                        {% endfor %}
+                    </h4>
+                </div>
+                    <hr class="line">
+                  <form class="forms-sample" method="get" action="{% url 'confirm success' %}">
+                        <input type="text" value="{{teacher.id}}" class="hidden" name="id">
+                      <div class="row">
+
+                          <div class="col-md-4">
+                    <div class="form-group">
+                     <h4>Matiere</h4>
+                     <h5 class="label-info">
+                            {{course.name}}
+                    </h5>
+                    </div>
+                          </div>
+                          <div class="col-md-4">
+                    <div class="form-group">
+                     <h4>Classe</h4>
+                     <h5 class="label-info">
+                            {{classroom.name}}
+                    </h5>
+                    </div>
+                          </div>
+                          <div class="col-md-4">
+                    <div class="form-group">
+                      <h4>Departement de la matiere</h4>
+                        <h5 class="label-info">
+                            {% for dep in course.department.all %}
+                            {{dep.name}}
+                            {% endfor %}
+                        </h5>
+                    </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                             <div class="col-md-4">
+                    <div class="form-group">
+                     <h4>Coefficient</h4>
+                     <h5 class="label-info">
+                            {{course.coeff}}
+                    </h5>
+                    </div>
+                      </div>
+                          <div class="col-md-4">
+                    <div class="form-group">
+                     <h4>Enseignant en charge</h4>
+                     <h5 class="label-info">
+                            {{course.teacher.first_name}}
+                    </h5>
+                    </div>
+                      </div>
+                        <div class="col-md-4">
+                    <div class="form-group">
+                     <h4>Telephone</h4>
+                     <h5 class="label-info">
+                            {{course.teacher.phone_no}}
+                    </h5>
+                    </div>
+                      </div>
+                      </div>
+                      <hr class="line">
+                  </form>
+                </div>
+              </div>
+            </div>
+
+{% endblock %}

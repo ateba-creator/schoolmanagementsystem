@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                    <div class="row">
+                        <div class="col-md-8">
+                    <h3><img src="{% static 'Mainapp/images/education.png' %}" class="heading-icon">Ajouter une classe</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'class list' %}" class="btn btn-success">Voir la listes des classes</a>
+                        </div>
+                        </div>
+                        <hr class="line">
+                  <form class="forms-sample" method="post">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Section</label>
+                        {{form.section | add_class:"form-control" }}
+                        {{form.section.errors}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Enseignement</label>
+                       {{ form.studies_type | add_class:"form-control" }}
+                        {{ form.first_name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+                        <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Serie</label>
+                        {{form.group_type | add_class:"form-control" }}
+                        {{form.group_type.errors}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom de la classe</label>
+                       {{ form.name | add_class:"form-control" }}
+                        {{ form.name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+                      <hr class="line">
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Ajouter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+<div class="col-lg-12 grid-margin stretch-card" id="class-list">
+              <div class="card">
+                <div class="card-body shadow">
+                  <h3>Liste des classes deja ajoutees</h3>
+                  <p class="card-description">
+                    Pour plus de details  clickez sur le button<code>Detail</code>
+                  </p>
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                          <th></th>
+                        <th style="text-align:center">Nom</th>
+                        <th style="text-align:center">section</th>
+                          <th style="text-align:center">Enseignement</th>
+                          <th style="text-align:center">Serie</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for class in classrooms %}
+                    <form method="get" action="{% url 'class detail' %}">
+                    {% csrf_token %}
+                        <tr>
+                        <td style="text-align:center">
+                          {{forloop.counter}}
+                        </td>
+                            <td style="text-align:center">
+                                <strong>{{class.name}}</strong>
+                            </td>
+                            <td style="text-align:center">
+                                {{class.section}}
+                            </td>
+                        <td style="text-align:center">
+                          {{class.studies_type}}
+                        </td>
+                            <td style="text-align:center">
+                          {{class.group_type}}
+                        </td>
+                            <td style="text-align:center" class="hidden">
+                            <input type="text" name="id" value="{{class.id}}">
+                            </td>
+                            <td style="text-align:center">
+                            <button type="submit" class="btn btn-inverse-success">Details</button>
+                        </td>
+                      </tr>
+                    </form>
+                     {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% endblock %}

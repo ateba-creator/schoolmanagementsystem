@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} School Management System {% endblock %}
+{% block content %}
+{% for message in messages %}
+                {% if "success" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+{% if "error" in message.tags %}
+                  <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" style="text-align:center;">{{message}}</div>
+            </div>
+          </div>
+                {% endif %}
+                {% endfor %}
+    <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body shadow">
+                  <div class="row">
+                      <div class="col-md-7">
+                    <h3><img src="{% static 'Mainapp/images/education.png' %}" class="heading-icon">Ajouter un departement</h3>
+                      </div>
+                          <div class="col-md-5">
+                            <a href="{% url 'department list' %}" class="btn btn-rounded btn-inverse-primary" style="margin-left:100px;">Listes des departements</a>
+                        </div>
+                    </div>
+                    <hr class="line">
+                    <form class="forms-sample" method="post">
+                      {% csrf_token %}
+                   <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Section</label>
+                        {{form.section | add_class:"form-control" }}
+                        {{form.section.errors}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Enseignement</label>
+                       {{ form.studies_type | add_class:"form-control" }}
+                        {{ form.first_name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+                        <div class="row" style="margin-top:25px;">
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Serie</label>
+                        {{form.group_type | add_class:"form-control" }}
+                        {{form.group_type.errors}}
+                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Nom de departement</label>
+                       {{ form.name | add_class:"form-control" }}
+                        {{ form.name.errors | add_error_class:"form-errors" }}
+                    </div>
+                        </div>
+                    </div>
+                        <hr class="line">
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Ajouter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+{% endblock %}
